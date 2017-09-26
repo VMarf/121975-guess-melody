@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Владислав Марфин](https://up.htmlacademy.ru/ecmascript/3/user/121975).
-* Наставник: `Неизвестно`.
+* Наставник: [Артем Черкасов](https://up.htmlacademy.ru/ecmascript/3/user/530727).
 
 ---
 
