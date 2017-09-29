@@ -21,7 +21,7 @@
     newScreen = screens[screenNumber];
     currentScreenIndex = screens.indexOf(newScreen);
 
-    app.replaceChild(newScreen, oldScreen);
+    app.replaceChild(newScreen.cloneNode(true), oldScreen);
   };
 
   const onDocumentKeyPress = (evt) => {
