@@ -1,4 +1,5 @@
-import {getNode} from '../utils.js';
+import {getNode, showScreen} from '../utils.js';
+import {screenLevelGenre, initScreenLevelGenre} from './level-genre.js';
 
 const screenLevelArtist = getNode(`<section class="main main--level main--level-artist js-main">
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
@@ -32,7 +33,7 @@ const screenLevelArtist = getNode(`<section class="main main--level main--level-
       <form class="main-list">
         <div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-1" name="answer" value="val-1"/>
-          <label class="main-answer" for="answer-1">
+          <label class="main-answer js-main-answer" for="answer-1">
             <img class="main-answer-preview" src="http://placehold.it/134x134"
                  alt="Пелагея" width="134" height="134">
             Пелагея
@@ -41,7 +42,7 @@ const screenLevelArtist = getNode(`<section class="main main--level main--level-
 
         <div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-2" name="answer" value="val-2"/>
-          <label class="main-answer" for="answer-2">
+          <label class="main-answer js-main-answer" for="answer-2">
             <img class="main-answer-preview" src="http://placehold.it/134x134"
                  alt="Краснознаменная дивизия имени моей бабушки" width="134" height="134">
             Краснознаменная дивизия имени моей бабушки
@@ -50,7 +51,7 @@ const screenLevelArtist = getNode(`<section class="main main--level main--level-
 
         <div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-3" name="answer" value="val-3"/>
-          <label class="main-answer" for="answer-3">
+          <label class="main-answer js-main-answer" for="answer-3">
             <img class="main-answer-preview" src="http://placehold.it/134x134"
                  alt="Lorde" width="134" height="134">
             Lorde
@@ -60,4 +61,17 @@ const screenLevelArtist = getNode(`<section class="main main--level main--level-
     </div>
   </section>`);
 
-export {screenLevelArtist};
+const initScreenLevelArtist = () => {
+  const answers = Array.from(document.querySelectorAll(`.js-main-answer`));
+
+  const onAnswerClick = () => {
+    showScreen(screenLevelGenre);
+    initScreenLevelGenre();
+  };
+
+  answers.forEach((answer) => {
+    answer.addEventListener(`click`, onAnswerClick);
+  });
+};
+
+export {screenLevelArtist, initScreenLevelArtist};

@@ -1,5 +1,5 @@
-import {getNode} from '../utils.js';
-import {playButton} from '../main.js';
+import {getNode, showScreen} from '../utils.js';
+import {screenLevelArtist, initScreenLevelArtist} from './level-artist.js';
 
 const screenWelcome = getNode(`<section class="main main--welcome js-main">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
@@ -12,6 +12,15 @@ const screenWelcome = getNode(`<section class="main main--welcome js-main">
     </p>
   </section>`);
 
-console.log(playButton);
+const initScreenWelcome = () => {
+  const playButton = document.querySelector(`.js-main-play`);
 
-export {screenWelcome};
+  const onPlayButtonClick = () => {
+    showScreen(screenLevelArtist);
+    initScreenLevelArtist();
+  };
+
+  playButton.addEventListener(`click`, onPlayButtonClick);
+};
+
+export {screenWelcome, initScreenWelcome};

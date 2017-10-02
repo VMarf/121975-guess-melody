@@ -5,7 +5,7 @@ const screenResultAttemptsEnd = getNode(`<section class="main main--result js-ma
 
     <h2 class="title">Какая жалость!</h2>
     <div class="main-stat">У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!</div>
-    <span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>
+    <span role="button" tabindex="0" class="main-replay js-main-replay">Попробовать ещё раз</span>
   </section>`);
 
 export {screenResultAttemptsEnd};

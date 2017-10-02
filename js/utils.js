@@ -4,6 +4,10 @@ let node;
 let oldScreen;
 let newScreen;
 
+const getValueFromRange = (minValue, maxValue) => {
+  return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+};
+
 const getNode = (string) => {
   node = document.createElement(`div`);
   node.innerHTML = string;
@@ -18,4 +22,4 @@ const showScreen = (screen) => {
   app.replaceChild(newScreen.cloneNode(true), oldScreen);
 };
 
-export {getNode, showScreen};
+export {getValueFromRange, getNode, showScreen};
