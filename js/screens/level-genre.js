@@ -37,7 +37,7 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
             </div>
           </div>
           <input class="js-genre-answer-input" type="checkbox" name="answer" value="answer-1" id="a-1">
-          <label class="genre-answer-check js-genre-answer-check" for="a-1"></label>
+          <label class="genre-answer-check" for="a-1"></label>
         </div>
 
         <div class="genre-answer">
@@ -51,7 +51,7 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
             </div>
           </div>
           <input class="js-genre-answer-input" type="checkbox" name="answer" value="answer-1" id="a-2">
-          <label class="genre-answer-check js-genre-answer-check" for="a-2"></label>
+          <label class="genre-answer-check" for="a-2"></label>
         </div>
 
         <div class="genre-answer">
@@ -65,7 +65,7 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
             </div>
           </div>
           <input class="js-genre-answer-input" type="checkbox" name="answer" value="answer-1" id="a-3">
-          <label class="genre-answer-check js-genre-answer-check" for="a-3"></label>
+          <label class="genre-answer-check" for="a-3"></label>
         </div>
 
         <div class="genre-answer">
@@ -79,7 +79,7 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
             </div>
           </div>
           <input class="js-genre-answer-input" type="checkbox" name="answer" value="answer-1" id="a-4">
-          <label class="genre-answer-check js-genre-answer-check" for="a-4"></label>
+          <label class="genre-answer-check" for="a-4"></label>
         </div>
 
         <button class="genre-answer-send js-genre-answer-send" type="submit" disabled>Ответить</button>
@@ -89,11 +89,10 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
 
 const initScreenLevelGenre = () => {
   const genreAnswersInputs = Array.from(document.querySelectorAll(`.js-genre-answer-input`));
-  const genreAnswers = Array.from(document.querySelectorAll(`.js-genre-answer-check`));
   const sendButton = document.querySelector(`.js-genre-answer-send`);
 
-  const onGenreAnswerClick = () => {
-    sendButton.disabled = genreAnswersInputs.some((genreAnswerInput) => genreAnswerInput.checked);
+  const onGenreAnswerInputChange = () => {
+    sendButton.disabled = !genreAnswersInputs.some((genreAnswerInput) => genreAnswerInput.checked);
   };
 
   const onSendButtonClick = (evt) => {
@@ -117,8 +116,8 @@ const initScreenLevelGenre = () => {
     }
   };
 
-  genreAnswers.forEach((genreAnswer) => {
-    genreAnswer.addEventListener(`click`, onGenreAnswerClick);
+  genreAnswersInputs.forEach((genreAnswerInput) => {
+    genreAnswerInput.addEventListener(`change`, onGenreAnswerInputChange);
   });
 
   sendButton.addEventListener(`click`, onSendButtonClick);
