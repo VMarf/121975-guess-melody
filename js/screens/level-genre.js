@@ -25,7 +25,7 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
 
     <div class="main-wrap">
       <h2 class="title">Выберите инди-рок треки</h2>
-      <form class="genre">
+      <form class="genre js-genre">
         <div class="genre-answer">
           <div class="player-wrapper">
             <div class="player">
@@ -88,11 +88,14 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
   </section>`);
 
 const initScreenLevelGenre = () => {
-  const genreAnswersInputs = Array.from(document.querySelectorAll(`.js-genre-answer-input`));
-  const sendButton = document.querySelector(`.js-genre-answer-send`);
+  const genreForm = document.querySelector(`.js-genre`);
+  const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
+  const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
 
-  const onGenreAnswerInputChange = () => {
-    sendButton.disabled = !genreAnswersInputs.some((genreAnswerInput) => genreAnswerInput.checked);
+  const onGenreFormChange = (evt) => {
+    if (evt.target.closest(`.js-genre-answer-input`)) {
+      sendButton.disabled = !genreAnswersInputs.some((genreAnswerInput) => genreAnswerInput.checked);
+    }
   };
 
   const onSendButtonClick = (evt) => {
@@ -116,9 +119,7 @@ const initScreenLevelGenre = () => {
     }
   };
 
-  genreAnswersInputs.forEach((genreAnswerInput) => {
-    genreAnswerInput.addEventListener(`change`, onGenreAnswerInputChange);
-  });
+  genreForm.addEventListener(`change`, onGenreFormChange);
 
   sendButton.addEventListener(`click`, onSendButtonClick);
 };
