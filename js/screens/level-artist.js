@@ -30,10 +30,10 @@ const screenLevelArtist = getNode(`<section class="main main--level main--level-
           </div>
         </div>
       </div>
-      <form class="main-list">
+      <form class="main-list js-main-list">
         <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-1" name="answer" value="val-1"/>
-          <label class="main-answer js-main-answer" for="answer-1">
+          <input class="main-answer-r js-main-answer-r" type="radio" id="answer-1" name="answer" value="val-1"/>
+          <label class="main-answer" for="answer-1">
             <img class="main-answer-preview" src="http://placehold.it/134x134"
                  alt="Пелагея" width="134" height="134">
             Пелагея
@@ -41,8 +41,8 @@ const screenLevelArtist = getNode(`<section class="main main--level main--level-
         </div>
 
         <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-2" name="answer" value="val-2"/>
-          <label class="main-answer js-main-answer" for="answer-2">
+          <input class="main-answer-r js-main-answer-r" type="radio" id="answer-2" name="answer" value="val-2"/>
+          <label class="main-answer" for="answer-2">
             <img class="main-answer-preview" src="http://placehold.it/134x134"
                  alt="Краснознаменная дивизия имени моей бабушки" width="134" height="134">
             Краснознаменная дивизия имени моей бабушки
@@ -50,8 +50,8 @@ const screenLevelArtist = getNode(`<section class="main main--level main--level-
         </div>
 
         <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-3" name="answer" value="val-3"/>
-          <label class="main-answer js-main-answer" for="answer-3">
+          <input class="main-answer-r js-main-answer-r" type="radio" id="answer-3" name="answer" value="val-3"/>
+          <label class="main-answer" for="answer-3">
             <img class="main-answer-preview" src="http://placehold.it/134x134"
                  alt="Lorde" width="134" height="134">
             Lorde
@@ -62,16 +62,17 @@ const screenLevelArtist = getNode(`<section class="main main--level main--level-
   </section>`);
 
 const initScreenLevelArtist = () => {
-  const answers = Array.from(document.querySelectorAll(`.js-main-answer`));
+  const answersList = document.querySelector(`.js-main-list`);
 
-  const onAnswerClick = () => {
-    showScreen(screenLevelGenre);
-    initScreenLevelGenre();
+  const onAnswersListClick = (evt) => {
+    if (evt.target.closest(`.js-main-answer-r`)) {
+      showScreen(screenLevelGenre);
+      initScreenLevelGenre();
+    }
   };
 
-  answers.forEach((answer) => {
-    answer.addEventListener(`click`, onAnswerClick);
-  });
+  answersList.addEventListener(`click`, onAnswersListClick);
 };
 
 export {screenLevelArtist, initScreenLevelArtist};
+
