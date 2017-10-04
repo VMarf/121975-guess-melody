@@ -1,3 +1,5 @@
+// @TODO: Удалить из проекта
+
 import assert from 'assert';
 
 describe(`Array`, () => {
