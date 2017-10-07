@@ -1,5 +1,5 @@
-import {showScreen} from '../utils.js';
-import {screenWelcome, initScreenWelcome} from './welcome.js';
+import showScreen from './show-screen.js';
+import {screenWelcome, initScreenWelcome} from './screens/welcome.js';
 
 const initReplay = () => {
   const replay = document.querySelector(`.js-main-replay`);

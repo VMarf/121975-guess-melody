@@ -1,4 +1,5 @@
-import {getNode, showScreen} from '../utils.js';
+import getNode from '../get-node.js';
+import showScreen from '../show-screen.js';
 import {screenLevelGenre, initScreenLevelGenre} from './level-genre.js';
 
 const screenLevelArtist = getNode(`<section class="main main--level main--level-artist js-main">

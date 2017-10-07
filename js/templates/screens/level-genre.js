@@ -1,8 +1,10 @@
-import {getValueFromRange, getNode, showScreen} from '../utils.js';
+import {getValueFromRange} from '../../utils.js';
+import getNode from '../get-node.js';
+import showScreen from '../show-screen.js';
 import {screenResultWin} from './result-win.js';
 import {screenResultTimeOver} from './result-time-over.js';
 import {screenResultAttemptsEnd} from './result-attempts-end.js';
-import initReplay from './init-replay.js';
+import initReplay from '../init-replay.js';
 
 const screenLevelGenre = getNode(`<section class="main main--level main--level-genre js-main">
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">

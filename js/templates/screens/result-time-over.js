@@ -1,4 +1,4 @@
-import {getNode} from '../utils.js';
+import getNode from '../get-node.js';
 
 const screenResultTimeOver = getNode(`<section class="main main--result js-main">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
