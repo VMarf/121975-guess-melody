@@ -18,18 +18,23 @@ const getPlayerResult = (resultsOtherPlayers, resultCurrentPlayer) => {
     return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
   }
 
+  // Так как мы меняем переданный в функцию массив, нужно его скопировать
   const playersStats = resultsOtherPlayers.slice();
 
-  // Добавляем очки текущего игрока в конец общей статистики и сортируем по возрастанию (функцию для sort взял с learn js)
+  // Добавляем очки текущего игрока в конец общей статистики
   playersStats.push(resultCurrentPlayer.score);
-  playersStats.sort((a, b) => {
-    return a - b;
-  });
 
-  const currentPlayerIndex = playersStats.indexOf(resultCurrentPlayer.score);
+  // Получаем число игроков, которых победил текущий игрок
+  const currentPlayerIndex = playersStats.filter((playerStats) => playerStats < resultCurrentPlayer.score).length;
+
+  // Получаем место, которое занял текущий игрок
   const currentPlayerPlace = playersStats.length - currentPlayerIndex;
-  const defeatedPlayers = currentPlayerIndex / playersStats.length;
 
+  // Получаем количество побежденных игроков
+  // Дополнительно умножаем на 100, так как выводим полученное число в процентах
+  const defeatedPlayers = currentPlayerIndex / playersStats.length * 100;
+
+  // Если игрок успешно закончил игру, возвращаем его результат
   return `Вы заняли ${currentPlayerPlace}-е место из ${playersStats.length} игроков. Это лучше чем у ${defeatedPlayers}% игроков.`;
 };
 

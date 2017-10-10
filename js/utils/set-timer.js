@@ -1,12 +1,12 @@
 const setTimer = (seconds) => {
   if (seconds === 0) {
-    return `timer expired`;
+    return -1;
   }
 
   return {
     value: seconds,
-    tick: () => {
-      return setTimer(seconds - 1);
+    tick() {
+      return this.value - 1;
     }
   };
 };

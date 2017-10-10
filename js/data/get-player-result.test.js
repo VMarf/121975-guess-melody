@@ -33,6 +33,16 @@ suite(`Player result`, () => {
       remainingTime: 60
     };
 
-    assert.equal(getPlayerResult(resultsOtherPlayers, resultCurrentPlayer), `Вы заняли 2-е место из 8 игроков. Это лучше чем у 0.75% игроков.`);
+    assert.equal(getPlayerResult(resultsOtherPlayers, resultCurrentPlayer), `Вы заняли 2-е место из 8 игроков. Это лучше чем у 75% игроков.`);
+  });
+
+  test(`The current player's score equal the other player score in stats`, () => {
+    resultCurrentPlayer = {
+      score: 11,
+      remainingNotes: 1,
+      remainingTime: 60
+    };
+
+    assert.equal(getPlayerResult(resultsOtherPlayers, resultCurrentPlayer), `Вы заняли 4-е место из 8 игроков. Это лучше чем у 50% игроков.`);
   });
 });

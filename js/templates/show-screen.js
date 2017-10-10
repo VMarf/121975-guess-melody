@@ -5,9 +5,9 @@ let newScreen;
 
 const showScreen = (screen) => {
   oldScreen = app.querySelector(`.js-main`);
-  newScreen = screen;
+  newScreen = screen.cloneNode(true);
 
-  app.replaceChild(newScreen.cloneNode(true), oldScreen);
+  app.replaceChild(newScreen, oldScreen);
 };
 
 export default showScreen;

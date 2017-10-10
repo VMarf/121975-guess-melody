@@ -1,4 +1,4 @@
-import {getValueFromRange} from '../../utils.js';
+import getValueFromRange from '../../utils/get-value-from-range';
 import getNode from '../get-node.js';
 import showScreen from '../show-screen.js';
 import {screenResultWin} from './result-win.js';
