@@ -1,7 +1,5 @@
-import {showScreen} from './utils.js';
-import {screenWelcome, initScreenWelcome} from './screens/welcome.js';
+import showScreen from './templates/show-screen.js';
+import {screenWelcome, initScreenWelcome} from './templates/screens/welcome.js';
 
 showScreen(screenWelcome);
 initScreenWelcome();
-
-
