@@ -7,6 +7,7 @@ import {screenResultTimeOver} from './result-time-over.js';
 import {screenResultAttemptsEnd} from './result-attempts-end.js';
 import initReplay from '../init-replay.js';
 
+// @TODO: Что с этим можно сделать? (спросить на консультации)
 const answersNumbers = [1, 2, 3, 4];
 
 const titleTemplate = `<h2 class="title">Выберите инди-рок треки</h2>`;
