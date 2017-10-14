@@ -18,10 +18,11 @@ const notesTemplate = `<div class="main-mistakes">
       <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
     </div>`;
 
+// @TODO: Для js-song-play нужен обработчик события, который меняет классы player-control--play, player-control--pause и управляет воспроизведением трека
 const playerWrapperTemplate = `<div class="player-wrapper">
         <div class="player">
-          <audio></audio>
-          <button class="player-control player-control--pause"></button>
+          <audio src=""></audio>
+          <button class="player-control player-control--play js-song-play"></button>
           <div class="player-track">
             <span class="player-status"></span>
           </div>

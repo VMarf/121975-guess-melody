@@ -1,6 +1,7 @@
 import getNode from '../get-node.js';
 import {logoTemplate, replayButtonTemplate} from './components.js';
 
+// @TODO: Все экраны с результатом одинаковы, разница только в содержимом infoTemplate, можно для всех видов экранов с результатом сделать 1 шаблон
 const infoTemplate = `<h2 class="title">Вы настоящий меломан!</h2>
     <div class="main-stat">За 3 минуты и 25 секунд
       <br>вы набрали 12 баллов (8 быстрых)

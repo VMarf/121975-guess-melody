@@ -3,7 +3,7 @@ import showScreen from '../show-screen.js';
 import {timerTemplate, notesTemplate, playerWrapperTemplate} from './components.js';
 import {screenLevelGenre, initScreenLevelGenre} from './level-genre.js';
 
-// @TODO: Вынести в game.js
+// @TODO: Заменить на данные из game.js
 const answersInfo = [
   {
     singerName: `Пелагея`,
