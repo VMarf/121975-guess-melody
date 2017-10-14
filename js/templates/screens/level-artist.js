@@ -1,6 +1,7 @@
+import {initialState} from '../../data/game.js';
 import getNode from '../get-node.js';
 import showScreen from '../show-screen.js';
-import {timerTemplate, notesTemplate, playerWrapperTemplate} from './components.js';
+import {playerWrapperTemplate, getStateTemplate} from './components.js';
 import {screenLevelGenre, initScreenLevelGenre} from './level-genre.js';
 
 // @TODO: Заменить на данные из game.js
@@ -32,8 +33,7 @@ const getAnswerWrapperTemplate = (answerNumber, singerName, singerPhoto) => {
 };
 
 const screenLevelArtist = getNode(`<section class="main main--level main--level-artist js-main">
-    ${timerTemplate}
-    ${notesTemplate}
+    ${getStateTemplate(initialState)}
     <div class="main-wrap">
       ${titleTemplate}
       ${playerWrapperTemplate}

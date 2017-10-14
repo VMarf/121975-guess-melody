@@ -1,7 +1,8 @@
+import {initialState} from '../../data/game.js';
 import getValueFromRange from '../../utils/get-value-from-range';
 import getNode from '../get-node.js';
 import showScreen from '../show-screen.js';
-import {timerTemplate, notesTemplate, playerWrapperTemplate} from './components.js';
+import {playerWrapperTemplate, getStateTemplate} from './components.js';
 import {screenResultWin} from './result-win.js';
 import {screenResultTimeOver} from './result-time-over.js';
 import {screenResultAttemptsEnd} from './result-attempts-end.js';
@@ -23,8 +24,7 @@ const getGenreAnswerTemplate = (answerNumber) => {
 };
 
 const screenLevelGenre = getNode(`<section class="main main--level main--level-genre js-main">
-    ${timerTemplate}
-    ${notesTemplate}
+    ${getStateTemplate(initialState)}
     <div class="main-wrap">
       ${titleTemplate}
       <form class="genre js-genre">
