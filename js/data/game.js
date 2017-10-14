@@ -1,9 +1,8 @@
 import songs from './songs.js';
 
-// @TODO: Возможно лишнее и эти значения можно брать из currentPlayer
-const InitialState = {
-  TIME: 5, // минуты
-  NOTES: 3
+const initialState = {
+  time: 5, // минуты
+  notes: 3
 };
 
 const questions = [
@@ -76,10 +75,6 @@ const questions = [
 
 const currentPlayer = {
   score: 0,
-  remainingTime: 300,
-  remainingNotes: 3,
-  currentLevel: 0,
-  remainingLevels: 10,
   answers: [] // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах (для работы с getPlayerScore)
 };
 
