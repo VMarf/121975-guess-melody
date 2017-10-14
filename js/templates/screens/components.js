@@ -14,7 +14,7 @@ const playerWrapperTemplate = `<div class="player-wrapper">
 const replayButtonTemplate = `<span role="button" tabindex="0" class="main-replay js-main-replay">Сыграть ещё раз</span>`;
 
 const getStateTemplate = (state) => {
-  const stateTemplate = `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+  return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
         cx="390" cy="390" r="370"
         class="timer-line"
@@ -32,8 +32,6 @@ const getStateTemplate = (state) => {
         .fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`)
         .join(``)}
     </div>`;
-
-  return stateTemplate;
 };
 
 export {logoTemplate, playerWrapperTemplate, replayButtonTemplate, getStateTemplate};
