@@ -7,8 +7,8 @@ const addZeroToNumber = (number) => {
 };
 
 const convertSecondsToMinutes = (seconds) => {
-  let convertedMinutes = Math.floor(seconds / 60);
-  let convertedSeconds = Math.floor(seconds % 60);
+  const convertedMinutes = Math.floor(seconds / 60);
+  const convertedSeconds = Math.floor(seconds % 60);
 
   return {
     minutes: addZeroToNumber(convertedMinutes),

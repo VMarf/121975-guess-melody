@@ -85,7 +85,7 @@ const currentPlayer = {
   spentTime: GameSettings.MAX_GAME_TIME - initialState.time,
   remainingTime: initialState.time,
   remainingNotes: GameSettings.MAX_COUNT_NOTES - initialState.mistakes,
-  answers: [] // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах (для работы с getPlayerScore)
+  answers: [] // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах
 };
 
 const playersStats = [4, 5, 8, 10, 11, 15, 19];

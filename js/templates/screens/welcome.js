@@ -29,4 +29,12 @@ const initScreenWelcome = () => {
   playButton.addEventListener(`click`, onPlayButtonClick);
 };
 
+// const getScreen = (data) => {
+//   const screen = showScreen(screenWelcome);
+//
+//   initScreenWelcome();
+//
+//   return screen;
+// };
+
 export {screenWelcome, initScreenWelcome};

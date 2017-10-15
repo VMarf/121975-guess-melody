@@ -1,6 +1,6 @@
 import {GameSettings, initialState, currentPlayer, playersStats} from '../../data/game.js';
-import convertSecondsToMinutes from '../../utils/convert-seconds-to-minutes.js';
 import getPlayerResult from '../../data/get-player-result.js';
+import convertSecondsToMinutes from '../../utils/convert-seconds-to-minutes.js';
 import getNode from '../get-node.js';
 import {logoTemplate, replayButtonTemplate} from './components.js';
 
