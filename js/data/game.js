@@ -1,9 +1,14 @@
 import songs from './songs.js';
 
-const MAX_COUNT_NOTES = 3;
+const GameSettings = {
+  MAX_GAME_TIME: 300, // секунды
+  MAX_QUICK_ANSWER_TIME: 30, // секунды
+  MAX_COUNT_NOTES: 3,
+  MAX_COUNT_ANSWERS: 10
+};
 
 const initialState = {
-  time: 300, // секунды
+  time: GameSettings.MAX_GAME_TIME,
   mistakes: 0
 };
 
@@ -77,11 +82,12 @@ const questions = [
 
 const currentPlayer = {
   score: 0,
+  spentTime: GameSettings.MAX_GAME_TIME - initialState.time,
   remainingTime: initialState.time,
-  remainingNotes: MAX_COUNT_NOTES - initialState.mistakes,
+  remainingNotes: GameSettings.MAX_COUNT_NOTES - initialState.mistakes,
   answers: [] // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах (для работы с getPlayerScore)
 };
 
 const playersStats = [4, 5, 8, 10, 11, 15, 19];
 
-export {initialState, questions, currentPlayer, playersStats};
+export {GameSettings, initialState, questions, currentPlayer, playersStats};

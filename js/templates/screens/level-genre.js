@@ -1,5 +1,5 @@
 import {initialState} from '../../data/game.js';
-import getValueFromRange from '../../utils/get-value-from-range';
+import getValueFromRange from '../../utils/get-value-from-range.js';
 import getNode from '../get-node.js';
 import showScreen from '../show-screen.js';
 import {playerWrapperTemplate, getStateTemplate} from './components.js';

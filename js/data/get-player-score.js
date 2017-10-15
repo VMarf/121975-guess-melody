@@ -1,5 +1,4 @@
-const MAX_ANSWERS = 10;
-const MAX_QUICK_ANSWER_TIME = 30; // секунды
+import {GameSettings} from './game.js';
 
 const calculateScore = (answers) => {
   return answers.reduce((playerScore, answer) => {
@@ -10,7 +9,7 @@ const calculateScore = (answers) => {
     }
 
     // За быстрый правильный ответ 2 очка
-    if (answer.time <= MAX_QUICK_ANSWER_TIME) {
+    if (answer.time <= GameSettings.MAX_QUICK_ANSWER_TIME) {
       return playerScore + 2;
     }
 
@@ -29,7 +28,7 @@ const getPlayerScore = (answers, remainingNotes) => {
   // }
 
   // Если игрок ответил не на все вопросы или у него кончились ноты, то он проиграл
-  if (answers.length < MAX_ANSWERS || remainingNotes < 0) {
+  if (answers.length < GameSettings.MAX_COUNT_ANSWERS || remainingNotes < 0) {
     return -1;
   }
 

@@ -1,16 +1,18 @@
-import {initialState, currentPlayer, playersStats} from '../../data/game.js';
+import {GameSettings, initialState, currentPlayer, playersStats} from '../../data/game.js';
+import convertSecondsToMinutes from '../../utils/convert-seconds-to-minutes.js';
 import getPlayerResult from '../../data/get-player-result.js';
 import getNode from '../get-node.js';
 import {logoTemplate, replayButtonTemplate} from './components.js';
 
+const spentTime = convertSecondsToMinutes(currentPlayer.spentTime);
+
 // @TODO: Все экраны с результатом одинаковы, разница только в содержимом infoTemplate, можно для всех видов экранов с результатом сделать 1 шаблон
-// @TODO: С магическим числом 30 надо что-то делать, в модуле get-player-score есть константа MAX_QUICK_ANSWER_TIME, её можно вынести в data/game.js
 const infoTemplate = `<h2 class="title">Вы настоящий меломан!</h2>
     <div class="main-stat">
-      За 3 минуты и 25 секунд
+      За ${spentTime.minutes} минуты и ${spentTime.seconds} секунд
       <br>
       вы набрали ${currentPlayer.score} баллов 
-      (${currentPlayer.answers.filter((answer) => answer.time < 30).length} быстрых)
+      (${currentPlayer.answers.filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME).length} быстрых)
       <br>
       совершив ${initialState.mistakes} ошибки
     </div>
