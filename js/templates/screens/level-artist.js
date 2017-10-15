@@ -1,4 +1,5 @@
 import getNode from '../get-node.js';
+import controlGame from '../control-game.js';
 import {getStateTemplate, getPlayerWrapperTemplate} from './components.js';
 
 // Получаем заголовок игрового экрана
@@ -38,7 +39,7 @@ const getScreenLevelArtist = (state, question) => {
 
   const onAnswersListClick = (evt) => {
     if (evt.target.closest(`.js-main-answer-r`)) {
-
+      controlGame(state);
     }
   };
 

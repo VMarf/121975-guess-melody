@@ -4,12 +4,20 @@ const GameSettings = {
   MAX_GAME_TIME: 300, // секунды
   MAX_QUICK_ANSWER_TIME: 30, // секунды
   MAX_COUNT_NOTES: 3,
-  MAX_COUNT_ANSWERS: 10
+  MAX_COUNT_MISTAKES: 3,
+  MAX_COUNT_ANSWERS: 10,
+  MAX_COUNT_LEVELS: 10
 };
 
 const initialState = {
   time: GameSettings.MAX_GAME_TIME,
-  mistakes: 0
+  mistakes: 0,
+  level: 0,
+  resetToDefault() {
+    this.time = GameSettings.MAX_GAME_TIME;
+    this.mistakes = 0;
+    this.level = 0;
+  }
 };
 
 const questions = [
@@ -85,7 +93,14 @@ const currentPlayer = {
   spentTime: GameSettings.MAX_GAME_TIME - initialState.time,
   remainingTime: initialState.time,
   remainingNotes: GameSettings.MAX_COUNT_NOTES - initialState.mistakes,
-  answers: [] // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах
+  answers: [], // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах
+  resetToDefault() {
+    this.score = 0;
+    this.spentTime = GameSettings.MAX_GAME_TIME - initialState.time;
+    this.remainingTime = initialState.time;
+    this.remainingNotes = GameSettings.MAX_COUNT_NOTES - initialState.mistakes;
+    this.answers = [];
+  }
 };
 
 const playersStats = [4, 5, 8, 10, 11, 15, 19];

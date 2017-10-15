@@ -1,4 +1,5 @@
 import getNode from '../get-node.js';
+import controlGame from '../control-game.js';
 import {logoTemplate} from './components.js';
 
 const playButtonTemplate = `<button class="main-play js-main-play">Начать игру</button>`;
@@ -18,12 +19,12 @@ const screenWelcomeTemplate = `<section class="main main--welcome js-main">
   </section>`;
 
 // Получаем DOM элемент на основе шаблона экрана, добавляем обработчик и возвращаем для отрисовки на странице
-const getScreenWelcome = () => {
+const getScreenWelcome = (state) => {
   const screenTemplate = getNode(screenWelcomeTemplate);
   const playButton = screenTemplate.querySelector(`.js-main-play`);
 
   const onPlayButtonClick = () => {
-
+    controlGame(state);
   };
 
   playButton.addEventListener(`click`, onPlayButtonClick);

@@ -1,4 +1,5 @@
 import getNode from '../get-node.js';
+import controlGame from '../control-game.js';
 import {getStateTemplate, getPlayerWrapperTemplate} from './components.js';
 
 const answerSendButtonTemplate = `<button class="genre-answer-send js-genre-answer-send" type="submit" disabled>Ответить</button>`;
@@ -44,8 +45,9 @@ const getScreenLevelGenre = (state, question) => {
     }
   };
 
-  const onSendButtonClick = () => {
-
+  const onSendButtonClick = (evt) => {
+    evt.preventDefault();
+    controlGame(state);
   };
 
   genreForm.addEventListener(`change`, onGenreFormChange);

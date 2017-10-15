@@ -3,13 +3,13 @@ import convertSecondsToMinutes from '../../utils/convert-seconds-to-minutes.js';
 import getNode from '../get-node.js';
 import {logoTemplate, replayButtonTemplate} from './components.js';
 
-const getInfoTemplate = (gameSettings, state, currentPlayer, spentTime, resultsOtherPlayers) => {
+const getInfoTemplate = (maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers) => {
   return `<h2 class="title">Вы настоящий меломан!</h2>
           <div class="main-stat">
             За ${spentTime.minutes} минуты и ${spentTime.seconds} секунд
             <br>
             вы набрали ${currentPlayer.score} баллов 
-            (${currentPlayer.answers.filter((answer) => answer.time < gameSettings.MAX_QUICK_ANSWER_TIME).length} быстрых)
+            (${currentPlayer.answers.filter((answer) => answer.time < maxQuickAnswerTime).length} быстрых)
             <br>
             совершив ${state.mistakes} ошибки
           </div>
@@ -17,18 +17,18 @@ const getInfoTemplate = (gameSettings, state, currentPlayer, spentTime, resultsO
 };
 
 // Получаем заполненный шаблон экрана с результатом игрока
-const getScreenResultWinTemplate = (gameSettings, state, currentPlayer, spentTime, resultsOtherPlayers) => {
+const getScreenResultWinTemplate = (maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers) => {
   return `<section class="main main--result js-main">
             ${logoTemplate}
-            ${getInfoTemplate(gameSettings, state, currentPlayer, spentTime, resultsOtherPlayers)}
+            ${getInfoTemplate(maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers)}
             ${replayButtonTemplate}
           </section>`;
 };
 
 // Получаем DOM элемент на основе шаблона экрана и возвращаем для отрисовки на странице
-const getScreenResultWin = (gameSettings, state, currentPlayer, resultsOtherPlayers) => {
+const getScreenResultWin = (maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers) => {
   const spentTime = convertSecondsToMinutes(currentPlayer.spentTime);
-  const screenTemplate = getNode(getScreenResultWinTemplate(gameSettings, state, currentPlayer, spentTime, resultsOtherPlayers));
+  const screenTemplate = getNode(getScreenResultWinTemplate(maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers));
 
   return screenTemplate;
 };
