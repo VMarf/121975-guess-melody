@@ -4,10 +4,18 @@ import {logoTemplate, replayButtonTemplate} from './components.js';
 const infoTemplate = `<h2 class="title">Увы и ах!</h2>
     <div class="main-stat">Время вышло!<br>Вы не успели отгадать все мелодии</div>`;
 
-const screenResultTimeOver = getNode(`<section class="main main--result js-main">
+// Собираем шаблон страницы из шаблонов логических блоков
+const screenResultTimeOverTemplate = `<section class="main main--result js-main">
     ${logoTemplate}
     ${infoTemplate}
     ${replayButtonTemplate}
-  </section>`);
+  </section>`;
 
-export {screenResultTimeOver};
+// Получаем DOM элемент на основе шаблона экрана и возвращаем для отрисовки на странице
+const getScreenResultTimeOver = () => {
+  const screenTemplate = getNode(screenResultTimeOverTemplate);
+
+  return screenTemplate;
+};
+
+export default getScreenResultTimeOver;

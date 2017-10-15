@@ -1,59 +1,50 @@
-import {initialState} from '../../data/game.js';
 import getNode from '../get-node.js';
-import showScreen from '../show-screen.js';
-import {playerWrapperTemplate, getStateTemplate} from './components.js';
-import {screenLevelGenre, initScreenLevelGenre} from './level-genre.js';
+import {getStateTemplate, getPlayerWrapperTemplate} from './components.js';
 
-// @TODO: Заменить на данные из game.js
-const answersInfo = [
-  {
-    singerName: `Пелагея`,
-    singerPhoto: `http://placehold.it/134x134`
-  },
-  {
-    singerName: `Краснознаменная дивизия имени моей бабушки`,
-    singerPhoto: `http://placehold.it/134x134`
-  },
-  {
-    singerName: `Lorde`,
-    singerPhoto: `http://placehold.it/134x134`
-  }
-];
+// Получаем заголовок игрового экрана
+const getTitleTemplate = (text) => {
+  return `<h2 class="title main-title">${text}</h2>`;
+};
 
-const titleTemplate = `<h2 class="title main-title">Кто исполняет эту песню?</h2>`;
-
-const getAnswerWrapperTemplate = (answerNumber, singerName, singerPhoto) => {
+// Получаем заполненный шаблон одного варианта ответа
+const getAnswerWrapperTemplate = (answerNumber, artistName, artistImage) => {
   return `<div class="main-answer-wrapper">
             <input class="main-answer-r js-main-answer-r" type="radio" id="answer-${answerNumber}" name="answer" value="val-${answerNumber}"/>
             <label class="main-answer" for="answer-${answerNumber}">
-              <img class="main-answer-preview" src="${singerPhoto}" alt="${singerName}" width="134" height="134">
-              ${singerName}
+              <img class="main-answer-preview" src="${artistImage}" alt="${artistName}" width="134" height="134">
+              ${artistName}
             </label>
           </div>`;
 };
 
-const screenLevelArtist = getNode(`<section class="main main--level main--level-artist js-main">
-    ${getStateTemplate(initialState)}
-    <div class="main-wrap">
-      ${titleTemplate}
-      ${playerWrapperTemplate}
-      <form class="main-list js-main-list">
-        ${answersInfo.reduce((answers, answerInfo, answerInfoIndex) => answers + getAnswerWrapperTemplate(answerInfoIndex + 1, answerInfo.singerName, answerInfo.singerPhoto), ``)}
-      </form>
-    </div>
-  </section>`);
+// Получаем заполненный шаблон игрового экрана
+const getScreenLevelArtistTemplate = (state, question) => {
+  return `<section class="main main--level main--level-artist js-main">
+            ${getStateTemplate(state)}
+            <div class="main-wrap">
+              ${getTitleTemplate(question.title)}
+              ${getPlayerWrapperTemplate(question.songSrc)}
+              <form class="main-list js-main-list">
+                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getAnswerWrapperTemplate(answerIndex + 1, answer.artist, answer.image), ``)}
+              </form>
+            </div>
+          </section>`;
+};
 
-const initScreenLevelArtist = () => {
-  const answersList = document.querySelector(`.js-main-list`);
+// Получаем DOM элемент на основе шаблона экрана, добавляем обработчик и возвращаем для отрисовки на странице
+const getScreenLevelArtist = (state, question) => {
+  const screenTemplate = getNode(getScreenLevelArtistTemplate(state, question));
+  const answersList = screenTemplate.querySelector(`.js-main-list`);
 
   const onAnswersListClick = (evt) => {
     if (evt.target.closest(`.js-main-answer-r`)) {
-      showScreen(screenLevelGenre);
-      initScreenLevelGenre();
+
     }
   };
 
   answersList.addEventListener(`click`, onAnswersListClick);
+
+  return screenTemplate;
 };
 
-export {screenLevelArtist, initScreenLevelArtist};
+export default getScreenLevelArtist;

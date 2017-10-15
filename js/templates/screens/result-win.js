@@ -1,27 +1,36 @@
-import {GameSettings, initialState, currentPlayer, playersStats} from '../../data/game.js';
 import getPlayerResult from '../../data/get-player-result.js';
 import convertSecondsToMinutes from '../../utils/convert-seconds-to-minutes.js';
 import getNode from '../get-node.js';
 import {logoTemplate, replayButtonTemplate} from './components.js';
 
-const spentTime = convertSecondsToMinutes(currentPlayer.spentTime);
+const getInfoTemplate = (gameSettings, state, currentPlayer, spentTime, resultsOtherPlayers) => {
+  return `<h2 class="title">Вы настоящий меломан!</h2>
+          <div class="main-stat">
+            За ${spentTime.minutes} минуты и ${spentTime.seconds} секунд
+            <br>
+            вы набрали ${currentPlayer.score} баллов 
+            (${currentPlayer.answers.filter((answer) => answer.time < gameSettings.MAX_QUICK_ANSWER_TIME).length} быстрых)
+            <br>
+            совершив ${state.mistakes} ошибки
+          </div>
+          <span class="main-comparison">${getPlayerResult(resultsOtherPlayers, currentPlayer)}</span>`;
+};
 
-// @TODO: Все экраны с результатом одинаковы, разница только в содержимом infoTemplate, можно для всех видов экранов с результатом сделать 1 шаблон
-const infoTemplate = `<h2 class="title">Вы настоящий меломан!</h2>
-    <div class="main-stat">
-      За ${spentTime.minutes} минуты и ${spentTime.seconds} секунд
-      <br>
-      вы набрали ${currentPlayer.score} баллов 
-      (${currentPlayer.answers.filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME).length} быстрых)
-      <br>
-      совершив ${initialState.mistakes} ошибки
-    </div>
-    <span class="main-comparison">${getPlayerResult(playersStats, currentPlayer)}</span>`;
+// Получаем заполненный шаблон экрана с результатом игрока
+const getScreenResultWinTemplate = (gameSettings, state, currentPlayer, spentTime, resultsOtherPlayers) => {
+  return `<section class="main main--result js-main">
+            ${logoTemplate}
+            ${getInfoTemplate(gameSettings, state, currentPlayer, spentTime, resultsOtherPlayers)}
+            ${replayButtonTemplate}
+          </section>`;
+};
 
-const screenResultWin = getNode(`<section class="main main--result js-main">
-    ${logoTemplate}
-    ${infoTemplate}
-    ${replayButtonTemplate}
-  </section>`);
+// Получаем DOM элемент на основе шаблона экрана и возвращаем для отрисовки на странице
+const getScreenResultWin = (gameSettings, state, currentPlayer, resultsOtherPlayers) => {
+  const spentTime = convertSecondsToMinutes(currentPlayer.spentTime);
+  const screenTemplate = getNode(getScreenResultWinTemplate(gameSettings, state, currentPlayer, spentTime, resultsOtherPlayers));
 
-export {screenResultWin};
+  return screenTemplate;
+};
+
+export default getScreenResultWin;

@@ -16,7 +16,7 @@ const questions = [
   {
     type: `artist`,
     title: `Кто исполняет эту песню?`,
-    song: songs[1].src,
+    songSrc: songs[1].src,
     answerList: [songs[0], songs[1], songs[2]],
     correctAnswer: songs[1].artist
   },
@@ -29,7 +29,7 @@ const questions = [
   {
     type: `artist`,
     title: `Кто исполняет эту песню?`,
-    song: songs[0].src,
+    songSrc: songs[0].src,
     answerList: [songs[0], songs[1], songs[2]],
     correctAnswer: songs[0].artist
   },
@@ -42,7 +42,7 @@ const questions = [
   {
     type: `artist`,
     title: `Кто исполняет эту песню?`,
-    song: songs[2].src,
+    songSrc: songs[2].src,
     answerList: [songs[0], songs[1], songs[2]],
     correctAnswer: songs[2].artist
   },
@@ -55,7 +55,7 @@ const questions = [
   {
     type: `artist`,
     title: `Кто исполняет эту песню?`,
-    song: songs[5].src,
+    songSrc: songs[5].src,
     answerList: [songs[3], songs[4], songs[5]],
     correctAnswer: songs[5].artist
   },
@@ -68,7 +68,7 @@ const questions = [
   {
     type: `artist`,
     title: `Кто исполняет эту песню?`,
-    song: songs[4].src,
+    songSrc: songs[4].src,
     answerList: [songs[3], songs[4], songs[5]],
     correctAnswer: songs[4].artist
   },
