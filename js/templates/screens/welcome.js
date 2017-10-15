@@ -12,29 +12,30 @@ const infoTemplate = `<h2 class="title main-title">Правила игры</h2>
       Удачи!
     </p>`;
 
-const screenWelcome = getNode(`<section class="main main--welcome js-main">
+// Собираем шаблон страницы из шаблонов логических блоков
+const screenWelcomeTemplate = `<section class="main main--welcome js-main">
     ${logoTemplate}
     ${playButtonTemplate}
     ${infoTemplate}
-  </section>`);
+  </section>`;
 
-const initScreenWelcome = () => {
-  const playButton = document.querySelector(`.js-main-play`);
+// Получаем DOM элемент на основе шаблона экрана, добавляем обработчик и возвращаем для отрисовки на странице
+const getScreen = () => {
+  const screenTemplate = getNode(screenWelcomeTemplate);
+  const playButton = screenTemplate.querySelector(`.js-main-play`);
 
   const onPlayButtonClick = () => {
-    showScreen(screenLevelArtist);
-    initScreenLevelArtist();
+    // showScreen(screenLevelArtist);
+    // initScreenLevelArtist();
+
+    console.log(`Тест`);
   };
 
   playButton.addEventListener(`click`, onPlayButtonClick);
+
+  console.log(playButton);
+
+  return screenTemplate;
 };
 
-// const getScreen = (data) => {
-//   const screen = showScreen(screenWelcome);
-//
-//   initScreenWelcome();
-//
-//   return screen;
-// };
-
-export {screenWelcome, initScreenWelcome};
+export default getScreen;
