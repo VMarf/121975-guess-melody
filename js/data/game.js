@@ -32,7 +32,7 @@ const questions = [
     type: `genre`,
     title: `Выберите кантри треки`,
     answerList: [songs[2], songs[3], songs[4], songs[5]],
-    correctAnswer: songs[2]
+    correctAnswer: [songs[2].name]
   },
   {
     type: `artist`,
@@ -45,7 +45,7 @@ const questions = [
     type: `genre`,
     title: `Выберите поп треки`,
     answerList: [songs[2], songs[3], songs[4], songs[5]],
-    correctAnswer: songs[4]
+    correctAnswer: [songs[4].name]
   },
   {
     type: `artist`,
@@ -58,7 +58,7 @@ const questions = [
     type: `genre`,
     title: `Выберите электронные треки`,
     answerList: [songs[2], songs[3], songs[4], songs[5]],
-    correctAnswer: songs[5]
+    correctAnswer: [songs[5].name]
   },
   {
     type: `artist`,
@@ -71,7 +71,7 @@ const questions = [
     type: `genre`,
     title: `Выберите джаз треки`,
     answerList: [songs[0], songs[1], songs[2], songs[3]],
-    correctAnswer: songs[0]
+    correctAnswer: [songs[0].name]
   },
   {
     type: `artist`,
@@ -84,7 +84,7 @@ const questions = [
     type: `genre`,
     title: `Выберите рок треки`,
     answerList: [songs[0], songs[1], songs[2], songs[3]],
-    correctAnswer: songs[1]
+    correctAnswer: [songs[1].name]
   }
 ];
 

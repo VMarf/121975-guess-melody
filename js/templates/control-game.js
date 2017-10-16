@@ -8,14 +8,14 @@ import getScreenResultTimeOver from './screens/result-time-over.js';
 import getScreenResultAttemptsEnd from './screens/result-attempts-end.js';
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
-const checkQuestionType = (state, question) => {
+const checkQuestionType = (state, question, player) => {
   if (question.type === `artist`) {
-    showScreen(getScreenLevelArtist(state, question));
+    showScreen(getScreenLevelArtist(state, question, player));
     return;
   }
 
   if (question.type === `genre`) {
-    showScreen(getScreenLevelGenre(state, question));
+    showScreen(getScreenLevelGenre(state, question, player));
   }
 };
 
@@ -37,7 +37,7 @@ const controlGame = (state) => {
 
   // Если игрок в процессе игры
   if (state.level < GameSettings.MAX_COUNT_LEVELS) {
-    checkQuestionType(state, questions[state.level]);
+    checkQuestionType(state, questions[state.level], currentPlayer);
     state.level++;
     return;
   }

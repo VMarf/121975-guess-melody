@@ -1,3 +1,4 @@
+import checkAnswer from '../../data/check-answer.js';
 import getNode from '../get-node.js';
 import controlGame from '../control-game.js';
 import {getStateTemplate, getPlayerWrapperTemplate} from './components.js';
@@ -10,7 +11,7 @@ const getTitleTemplate = (text) => {
 // Получаем заполненный шаблон одного варианта ответа
 const getAnswerWrapperTemplate = (answerNumber, artistName, artistImage) => {
   return `<div class="main-answer-wrapper">
-            <input class="main-answer-r js-main-answer-r" type="radio" id="answer-${answerNumber}" name="answer" value="val-${answerNumber}"/>
+            <input class="main-answer-r js-main-answer-r" type="radio" id="answer-${answerNumber}" name="answer" value="${artistName}"/>
             <label class="main-answer" for="answer-${answerNumber}">
               <img class="main-answer-preview" src="${artistImage}" alt="${artistName}" width="134" height="134">
               ${artistName}
@@ -33,12 +34,16 @@ const getScreenLevelArtistTemplate = (state, question) => {
 };
 
 // Получаем DOM элемент на основе шаблона экрана, добавляем обработчик и возвращаем для отрисовки на странице
-const getScreenLevelArtist = (state, question) => {
+const getScreenLevelArtist = (state, question, currentPlayer) => {
   const screenTemplate = getNode(getScreenLevelArtistTemplate(state, question));
   const answersList = screenTemplate.querySelector(`.js-main-list`);
 
+  // Если игрок кликнул на один из ответов, то записываем ответ и с помощью controlGame получаем следующий экран
   const onAnswersListClick = (evt) => {
     if (evt.target.closest(`.js-main-answer-r`)) {
+      const answer = evt.target.closest(`.js-main-answer-r`).value;
+
+      checkAnswer(state, question, answer, currentPlayer);
       controlGame(state);
     }
   };

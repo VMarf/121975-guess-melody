@@ -1,9 +1,12 @@
+import getPlayerScore from '../../data/get-player-score.js';
 import getPlayerResult from '../../data/get-player-result.js';
 import convertSecondsToMinutes from '../../utils/convert-seconds-to-minutes.js';
 import getNode from '../get-node.js';
 import {logoTemplate, replayButtonTemplate} from './components.js';
 
 const getInfoTemplate = (maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers) => {
+  currentPlayer.score = getPlayerScore(currentPlayer.answers, currentPlayer.remainingNotes);
+
   return `<h2 class="title">Вы настоящий меломан!</h2>
           <div class="main-stat">
             За ${spentTime.minutes} минуты и ${spentTime.seconds} секунд
