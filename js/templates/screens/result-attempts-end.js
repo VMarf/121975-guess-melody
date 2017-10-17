@@ -1,11 +1,21 @@
 import getNode from '../get-node.js';
+import {logoTemplate, replayButtonTemplate} from './components.js';
 
-const screenResultAttemptsEnd = getNode(`<section class="main main--result js-main">
-    <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
+const infoTemplate = `<h2 class="title">Какая жалость!</h2>
+    <div class="main-stat">У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!</div>`;
 
-    <h2 class="title">Какая жалость!</h2>
-    <div class="main-stat">У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!</div>
-    <span role="button" tabindex="0" class="main-replay js-main-replay">Попробовать ещё раз</span>
-  </section>`);
+// Собираем шаблон страницы из шаблонов логических блоков
+const screenResultAttemptsEndTemplate = `<section class="main main--result js-main">
+    ${logoTemplate}
+    ${infoTemplate}
+    ${replayButtonTemplate}
+  </section>`;
 
-export {screenResultAttemptsEnd};
+// Получаем DOM элемент на основе шаблона экрана и возвращаем для отрисовки на странице
+const getScreenResultAttemptsEnd = () => {
+  const screenTemplate = getNode(screenResultAttemptsEndTemplate);
+
+  return screenTemplate;
+};
+
+export default getScreenResultAttemptsEnd;

@@ -1,5 +1,5 @@
+import {initialState} from './data/game.js';
 import showScreen from './templates/show-screen.js';
-import {screenWelcome, initScreenWelcome} from './templates/screens/welcome.js';
+import getScreenWelcome from './templates/screens/welcome.js';
 
-showScreen(screenWelcome);
-initScreenWelcome();
+showScreen(getScreenWelcome(initialState));

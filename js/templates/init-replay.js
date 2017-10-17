@@ -1,12 +1,14 @@
+import {initialState, currentPlayer} from '../data/game.js';
 import showScreen from './show-screen.js';
-import {screenWelcome, initScreenWelcome} from './screens/welcome.js';
+import getScreenWelcome from './screens/welcome.js';
 
 const initReplay = () => {
   const replay = document.querySelector(`.js-main-replay`);
 
   const onReplayClick = () => {
-    showScreen(screenWelcome);
-    initScreenWelcome();
+    initialState.resetToDefault();
+    currentPlayer.resetToDefault();
+    showScreen(getScreenWelcome(initialState));
   };
 
   replay.addEventListener(`click`, onReplayClick);
