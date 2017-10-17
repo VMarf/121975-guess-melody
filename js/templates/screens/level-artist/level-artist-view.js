@@ -1,7 +1,5 @@
-import checkAnswer from '../../data/check-answer.js';
-import getNode from '../get-node.js';
-import controlGame from '../control-game.js';
-import {getStateTemplate, getPlayerWrapperTemplate} from './components.js';
+import AbstractView from '../../../abstract-view.js';
+import {getStateTemplate, getPlayerWrapperTemplate} from '../components.js';
 
 // Получаем заголовок игрового экрана
 const getTitleTemplate = (text) => {
@@ -33,24 +31,24 @@ const getScreenLevelArtistTemplate = (state, question) => {
           </section>`;
 };
 
-// Получаем DOM элемент на основе шаблона экрана, добавляем обработчик и возвращаем для отрисовки на странице
-const getScreenLevelArtist = (state, question, currentPlayer) => {
-  const screenTemplate = getNode(getScreenLevelArtistTemplate(state, question));
-  const answersList = screenTemplate.querySelector(`.js-main-list`);
+class LevelArtistView extends AbstractView {
+  constructor(state, question) {
+    super();
+    this.state = state;
+    this.question = question;
+  }
 
-  // Если игрок кликнул на один из ответов, то записываем ответ и с помощью controlGame получаем следующий экран
-  const onAnswersListClick = (evt) => {
-    if (evt.target.closest(`.js-main-answer-r`)) {
-      const answer = evt.target.closest(`.js-main-answer-r`).value;
+  get template() {
+    return getScreenLevelArtistTemplate(this.state, this.question);
+  }
 
-      checkAnswer(state, question, answer, currentPlayer);
-      controlGame(state);
-    }
-  };
+  bind() {
+    const answersList = this._element.querySelector(`.js-main-list`);
 
-  answersList.addEventListener(`click`, onAnswersListClick);
+    answersList.addEventListener(`click`, this.onAnswersListClick);
+  }
 
-  return screenTemplate;
-};
+  onAnswersListClick() {}
+}
 
-export default getScreenLevelArtist;
+export default LevelArtistView;

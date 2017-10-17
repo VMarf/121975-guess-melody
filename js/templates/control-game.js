@@ -1,8 +1,8 @@
 import {GameSettings, questions, currentPlayer, playersStats} from '../data/game.js';
 import showScreen from './show-screen.js';
 import initReplay from './init-replay.js';
-import getScreenLevelArtist from './screens/level-artist.js';
-import getScreenLevelGenre from './screens/level-genre.js';
+import getScreenLevelArtist from './screens/level-artist/level-artist.js';
+import getScreenLevelGenre from './screens/level-genre/level-genre.js';
 import getScreenResultWin from './screens/result-win.js';
 import getScreenResultTimeOver from './screens/result-time-over.js';
 import getScreenResultAttemptsEnd from './screens/result-attempts-end.js';

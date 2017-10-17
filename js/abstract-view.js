@@ -1,4 +1,4 @@
-import getNode from './templates/get-node.js'
+import getNode from './templates/get-node.js';
 
 class AbstractView {
   get template() {
