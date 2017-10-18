@@ -4,20 +4,17 @@ import LevelGenreView from './level-genre-view.js';
 
 const getScreenLevelGenre = (state, question, currentPlayer) => {
   const screenLevelGenre = new LevelGenreView(state, question);
-  const genreForm = screenLevelGenre.element.querySelector(`.js-genre`);
-  const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
-  const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
 
   // Если выбран один из вариантов ответа или несколько, то кнопка отправки ответа становится доступной
-  screenLevelGenre.onGenreFormChange = (evt) => {
+  screenLevelGenre.onGenreFormChange = (evt, checkboxes, button) => {
     if (evt.target.closest(`.js-genre-answer-input`)) {
-      sendButton.disabled = !genreAnswersInputs.some((genreAnswerInput) => genreAnswerInput.checked);
+      button.disabled = !checkboxes.some((checkbox) => checkbox.checked);
     }
   };
 
   // По клику на кнопку отправки ответа, получаем value всех выбранных чекбоксов, записываем их в ответ и с помощью controlGame получаем следующий экран
-  screenLevelGenre.onSendButtonClick = (evt) => {
-    const genreAnswersCheckedInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input:checked`));
+  screenLevelGenre.onSendButtonClick = (evt, form) => {
+    const genreAnswersCheckedInputs = Array.from(form.querySelectorAll(`.js-genre-answer-input:checked`));
     const answers = genreAnswersCheckedInputs.map((checkedInput) => checkedInput.value);
 
     evt.preventDefault();

@@ -44,11 +44,12 @@ class LevelGenreView extends AbstractView {
 
   bind() {
     const genreForm = this._element.querySelector(`.js-genre`);
+    const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
     const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
 
-    genreForm.addEventListener(`change`, this.onGenreFormChange);
+    genreForm.addEventListener(`change`, (evt) => this.onGenreFormChange(evt, genreAnswersInputs, sendButton));
 
-    sendButton.addEventListener(`click`, this.onSendButtonClick);
+    sendButton.addEventListener(`click`, (evt) => this.onSendButtonClick(evt, genreForm));
   }
 
   onGenreFormChange() {}
