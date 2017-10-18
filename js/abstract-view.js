@@ -2,7 +2,7 @@ import getNode from './templates/get-node.js';
 
 class AbstractView {
   get template() {
-    throw new Error(`Abstract method called`);
+    throw new Error(`You have to define template for view`);
   }
 
   render() {

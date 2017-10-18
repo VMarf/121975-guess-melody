@@ -1,5 +1,5 @@
 import AbstractView from '../../../abstract-view.js';
-import {getStateTemplate, getPlayerWrapperTemplate} from '../components.js';
+import {getStateTemplate, getPlayerWrapperTemplate} from '../components-templates.js';
 
 // Получаем заголовок игрового экрана
 const getTitleTemplate = (text) => {

@@ -1,5 +1,5 @@
 import getNode from '../get-node.js';
-import {logoTemplate, replayButtonTemplate} from './components.js';
+import {logoTemplate, replayButtonTemplate} from './components-templates.js';
 
 const infoTemplate = `<h2 class="title">Увы и ах!</h2>
     <div class="main-stat">Время вышло!<br>Вы не успели отгадать все мелодии</div>`;

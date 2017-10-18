@@ -1,5 +1,5 @@
 import AbstractView from '../../../abstract-view.js';
-import {getStateTemplate, getPlayerWrapperTemplate} from '../components.js';
+import {getStateTemplate, getPlayerWrapperTemplate} from '../components-templates.js';
 
 const answerSendButtonTemplate = `<button class="genre-answer-send js-genre-answer-send" type="submit" disabled>Ответить</button>`;
 

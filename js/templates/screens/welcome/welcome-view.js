@@ -1,5 +1,5 @@
 import AbstractView from '../../../abstract-view.js';
-import {logoTemplate} from '../components.js';
+import {logoTemplate} from '../components-templates.js';
 
 const playButtonTemplate = `<button class="main-play js-main-play">Начать игру</button>`;
 
