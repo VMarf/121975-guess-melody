@@ -3,6 +3,7 @@ import songs from './songs.js';
 const GameSettings = {
   MAX_GAME_TIME: 300, // секунды
   MAX_QUICK_ANSWER_TIME: 30, // секунды
+  MIN_TIMER_DANGER_ZONE: 30, // секунды
   MAX_COUNT_NOTES: 3,
   MAX_COUNT_MISTAKES: 3,
   MAX_COUNT_ANSWERS: 10,
@@ -10,12 +11,18 @@ const GameSettings = {
 };
 
 const initialState = {
-  time: GameSettings.MAX_GAME_TIME,
   timer: null,
   mistakes: 0,
   level: 0,
+  get time() {
+    if (this.timer === null) {
+      return GameSettings.MAX_GAME_TIME;
+    }
+
+    return this.timer.seconds;
+  },
   resetToDefault() {
-    this.time = GameSettings.MAX_GAME_TIME;
+    this.timer = null;
     this.mistakes = 0;
     this.level = 0;
   }
