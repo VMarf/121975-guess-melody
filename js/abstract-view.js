@@ -10,7 +10,7 @@ class AbstractView {
   }
 
   bind() {
-    throw new Error(`Abstract method called`);
+
   }
 
   get element() {
