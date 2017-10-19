@@ -11,6 +11,7 @@ const GameSettings = {
 
 const initialState = {
   time: GameSettings.MAX_GAME_TIME,
+  timer: null,
   mistakes: 0,
   level: 0,
   resetToDefault() {
