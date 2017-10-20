@@ -1,10 +1,10 @@
 import Timer from '../utils/timer.js';
 import convertSecondsToMinutes from '../utils/convert-seconds-to-minutes.js';
 
-const screenTimer = document.querySelector('.js-timer-value');
-const screenTimerMinutes = screenTimer.querySelector('.js-timer-value-mins');
-const screenTimerDots = screenTimer.querySelector('.js-timer-value-dots');
-const screenTimerSeconds = screenTimer.querySelector('.js-timer-value-secs');
+// const screenTimer = document.querySelector('.js-timer-value');
+// const screenTimerMinutes = screenTimer.querySelector('.js-timer-value-mins');
+// const screenTimerDots = screenTimer.querySelector('.js-timer-value-dots');
+// const screenTimerSeconds = screenTimer.querySelector('.js-timer-value-secs');
 
 let newTime;
 
@@ -17,8 +17,8 @@ const createGameTimer = (state, maxGameTime) => {
 const updateScreenTimer = (seconds) => {
   newTime = convertSecondsToMinutes(seconds);
 
-  screenTimerMinutes.textContent = newTime.minutes;
-  screenTimerSeconds.textContent = newTime.seconds;
+  // screenTimerMinutes.textContent = newTime.minutes;
+  // screenTimerSeconds.textContent = newTime.seconds;
 };
 
 // Запускаем таймер

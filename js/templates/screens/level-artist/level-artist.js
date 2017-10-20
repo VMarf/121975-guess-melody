@@ -5,6 +5,11 @@ import LevelArtistView from './level-artist-view.js';
 const getScreenLevelArtist = (state, question, currentPlayer) => {
   const screenLevelArtist = new LevelArtistView(state, question);
 
+  // Сюда записываем сколько секунд потратил игрок на ответ
+  let answerTimerValue = 0;
+
+  const answerTimer = setInterval(() => answerTimerValue++, 1000);
+
   screenLevelArtist.onPlayButtonClick = (playButton) => {
     playButton.classList.toggle(`player-control--pause`);
 
@@ -20,7 +25,8 @@ const getScreenLevelArtist = (state, question, currentPlayer) => {
     if (evt.target.closest(`.js-main-answer-r`)) {
       const answer = evt.target.closest(`.js-main-answer-r`).value;
 
-      checkAnswer(state, question, answer, currentPlayer);
+      clearInterval(answerTimer);
+      checkAnswer(state, question, answer, answerTimerValue, currentPlayer);
       controlGame(state);
     }
   };

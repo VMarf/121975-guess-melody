@@ -5,6 +5,11 @@ import LevelGenreView from './level-genre-view.js';
 const getScreenLevelGenre = (state, question, currentPlayer) => {
   const screenLevelGenre = new LevelGenreView(state, question);
 
+  // Сюда записываем сколько секунд потратил игрок на ответ
+  let answerTimerValue = 0;
+
+  const answerTimer = setInterval(() => answerTimerValue++, 1000);
+
   // Управление вопсроизведением трека при клике на кнопку play
   screenLevelGenre.onGenreFormClick = (evt, playButtons) => {
     if (evt.target.closest(`.js-song-play`)) {
@@ -42,7 +47,8 @@ const getScreenLevelGenre = (state, question, currentPlayer) => {
     const answers = genreAnswersCheckedInputs.map((checkedInput) => checkedInput.value);
 
     evt.preventDefault();
-    checkAnswer(state, question, answers, currentPlayer);
+    clearInterval(answerTimer);
+    checkAnswer(state, question, answers, answerTimerValue, currentPlayer);
     controlGame(state);
   };
 
