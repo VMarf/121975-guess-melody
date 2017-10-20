@@ -4,7 +4,7 @@ import WelcomeView from './welcome-view.js';
 const getScreenWelcome = (state) => {
   const screenWelcome = new WelcomeView();
 
-  screenWelcome.onPlayButtonClick = () => {
+  screenWelcome.onStartButtonClick = () => {
 
     // Начинаем игру
     controlGame(state);

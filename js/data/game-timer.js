@@ -26,9 +26,7 @@ const startGameTimer = (state, minTimerDangerZone) => {
   return setInterval(() => {
 
     // Когда осталось менее 30 секунд таймер должен начать мигать красным цветом
-    if (state.timer.seconds < minTimerDangerZone) {
-
-    }
+    if (state.timer.seconds < minTimerDangerZone) {}
 
     state.timer.tick();
     updateScreenTimer(state.timer.seconds);

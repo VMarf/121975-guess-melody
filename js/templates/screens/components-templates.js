@@ -25,12 +25,11 @@ const getStateTemplate = (state) => {
           </div>`;
 };
 
-// @TODO: Для js-song-play нужен обработчик события, который меняет классы player-control--play, player-control--pause и управляет воспроизведением трека
-const getPlayerWrapperTemplate = (songSrc) => {
+const getPlayerWrapperTemplate = (questionType, songSrc) => {
   return `<div class="player-wrapper">
             <div class="player">
-              <audio src="${songSrc}"></audio>
-              <button class="player-control player-control--play js-song-play"></button>
+              <audio src="${songSrc}" ${questionType === `artist` ? `autoplay` : null}></audio>
+              <button class="player-control ${questionType === `artist` ? `player-control--pause` : `player-control--play`} js-song-play"></button>
               <div class="player-track">
                 <span class="player-status"></span>
               </div>

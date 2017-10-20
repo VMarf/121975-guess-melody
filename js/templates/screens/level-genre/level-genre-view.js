@@ -9,9 +9,9 @@ const getTitleTemplate = (text) => {
 };
 
 // Получаем заполненный шаблон одного варианта ответа
-const getGenreAnswerTemplate = (answerNumber, songName, songSrc) => {
+const getGenreAnswerTemplate = (answerNumber, songName, questionType, songSrc) => {
   return `<div class="genre-answer">
-            ${getPlayerWrapperTemplate(songSrc)}
+            ${getPlayerWrapperTemplate(questionType, songSrc)}
             <input class="js-genre-answer-input" type="checkbox" name="answer" value="${songName}" id="a-${answerNumber}">
             <label class="genre-answer-check" for="a-${answerNumber}"></label>
           </div>`;
@@ -24,7 +24,7 @@ const getScreenLevelGenreTemplate = (state, question) => {
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
                <form class="genre js-genre">
-                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, answer.name, answer.src), ``)}
+                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, answer.name, question.type, answer.src), ``)}
                 ${answerSendButtonTemplate}
                </form>
             </div>
@@ -44,14 +44,18 @@ class LevelGenreView extends AbstractView {
 
   bind() {
     const genreForm = this._element.querySelector(`.js-genre`);
+    const genrePlayButtons = Array.from(genreForm.querySelectorAll(`.js-song-play`));
     const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
     const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
+
+    genreForm.addEventListener(`click`, (evt) => this.onGenreFormClick(evt, genrePlayButtons));
 
     genreForm.addEventListener(`change`, (evt) => this.onGenreFormChange(evt, genreAnswersInputs, sendButton));
 
     sendButton.addEventListener(`click`, (evt) => this.onSendButtonClick(evt, genreForm));
   }
 
+  onGenreFormClick() {}
   onGenreFormChange() {}
   onSendButtonClick() {}
 }

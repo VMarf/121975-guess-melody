@@ -1,7 +1,7 @@
 import AbstractView from '../../../abstract-view.js';
 import {logoTemplate} from '../components-templates.js';
 
-const playButtonTemplate = `<button class="main-play js-main-play">Начать игру</button>`;
+const startButtonTemplate = `<button class="main-play js-main-start">Начать игру</button>`;
 
 const infoTemplate = `
 <h2 class="title main-title">Правила игры</h2>
@@ -15,7 +15,7 @@ const infoTemplate = `
 const screenWelcomeTemplate = `
 <section class="main main--welcome js-main">
   ${logoTemplate}
-  ${playButtonTemplate}
+  ${startButtonTemplate}
   ${infoTemplate}
 </section>`.trim();
 
@@ -25,12 +25,12 @@ class WelcomeView extends AbstractView {
   }
 
   bind() {
-    const playButton = this._element.querySelector(`.js-main-play`);
+    const startButton = this._element.querySelector(`.js-main-start`);
 
-    playButton.addEventListener(`click`, this.onPlayButtonClick);
+    startButton.addEventListener(`click`, this.onStartButtonClick);
   }
 
-  onPlayButtonClick() {}
+  onStartButtonClick() {}
 }
 
 export default WelcomeView;

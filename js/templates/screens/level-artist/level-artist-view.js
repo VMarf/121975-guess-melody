@@ -23,7 +23,7 @@ const getScreenLevelArtistTemplate = (state, question) => {
             ${getStateTemplate(state)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
-              ${getPlayerWrapperTemplate(question.songSrc)}
+              ${getPlayerWrapperTemplate(question.type, question.songSrc)}
               <form class="main-list js-main-list">
                 ${question.answerList.reduce((answers, answer, answerIndex) => answers + getAnswerWrapperTemplate(answerIndex + 1, answer.artist, answer.image), ``)}
               </form>
@@ -43,11 +43,15 @@ class LevelArtistView extends AbstractView {
   }
 
   bind() {
+    const playButton = this._element.querySelector(`.js-song-play`);
     const answersList = this._element.querySelector(`.js-main-list`);
+
+    playButton.addEventListener(`click`, () => this.onPlayButtonClick(playButton));
 
     answersList.addEventListener(`click`, this.onAnswersListClick);
   }
 
+  onPlayButtonClick() {}
   onAnswersListClick() {}
 }
 
