@@ -1,5 +1,6 @@
 import AbstractView from '../../../abstract-view.js';
-import {getStateTemplate, getPlayerWrapperTemplate} from '../components-templates.js';
+import TimerView from '../timer-view.js';
+import {getMistakesTemplate, getPlayerWrapperTemplate} from '../components-templates.js';
 
 // Получаем заголовок игрового экрана
 const getTitleTemplate = (text) => {
@@ -20,7 +21,8 @@ const getAnswerWrapperTemplate = (answerNumber, artistName, artistImage) => {
 // Получаем заполненный шаблон игрового экрана
 const getScreenLevelArtistTemplate = (state, question) => {
   return `<section class="main main--level main--level-artist js-main">
-            ${getStateTemplate(state)}
+            ${new TimerView().template}
+            ${getMistakesTemplate(state)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
               ${getPlayerWrapperTemplate(question.type, question.songSrc)}

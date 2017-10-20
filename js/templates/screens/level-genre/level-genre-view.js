@@ -1,5 +1,6 @@
 import AbstractView from '../../../abstract-view.js';
-import {getStateTemplate, getPlayerWrapperTemplate} from '../components-templates.js';
+import TimerView from '../timer-view.js';
+import {getMistakesTemplate, getPlayerWrapperTemplate} from '../components-templates.js';
 
 const answerSendButtonTemplate = `<button class="genre-answer-send js-genre-answer-send" type="submit" disabled>Ответить</button>`;
 
@@ -20,7 +21,8 @@ const getGenreAnswerTemplate = (answerNumber, songName, questionType, songSrc) =
 // Получаем заполненный шаблон игрового экрана
 const getScreenLevelGenreTemplate = (state, question) => {
   return `<section class="main main--level main--level-genre js-main">
-            ${getStateTemplate(state)}
+            ${new TimerView().template}
+            ${getMistakesTemplate(state)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
                <form class="genre js-genre">
