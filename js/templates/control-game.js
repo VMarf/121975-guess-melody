@@ -36,7 +36,7 @@ const controlGame = (state) => {
 
   // Если игрок прошел все уровни
   if (state.level === GameSettings.MAX_COUNT_LEVELS) {
-    showScreen(getScreenWinResult(GameSettings.MAX_QUICK_ANSWER_TIME, state, currentPlayer, playersStats));
+    showScreen(getScreenWinResult(GameSettings.MAX_QUICK_ANSWER_TIME, state.mistakes, currentPlayer, playersStats));
     initReplay();
   }
 };

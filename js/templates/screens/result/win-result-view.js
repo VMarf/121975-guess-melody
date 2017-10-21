@@ -6,10 +6,10 @@ import declineWord from '../../../utils/decline-word.js';
 import AbstractResultView from './abstract-result-view.js';
 
 class WinResultView extends AbstractResultView {
-  constructor(maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers) {
+  constructor(maxQuickAnswerTime, mistakesNumber, currentPlayer, resultsOtherPlayers) {
     super();
     this.maxQuickAnswerTime = maxQuickAnswerTime;
-    this.state = state;
+    this.mistakesNumber = mistakesNumber;
     this.currentPlayer = currentPlayer;
     this.resultsOtherPlayers = resultsOtherPlayers;
   }
@@ -30,7 +30,7 @@ class WinResultView extends AbstractResultView {
               вы набрали ${this.currentPlayer.score} ${declineWord(this.currentPlayer.score, WordsVariants.SCORE)} 
               (${numberQuickAnswers} ${declineWord(numberQuickAnswers, WordsVariants.FAST)})
               <br>
-              совершив ${this.state.mistakes} ${declineWord(this.state.mistakes, WordsVariants.MISTAKES)}
+              совершив ${this.mistakesNumber} ${declineWord(this.mistakesNumber, WordsVariants.MISTAKES)}
             </div>
             <span class="main-comparison">${getPlayerResult(this.resultsOtherPlayers, this.currentPlayer)}</span>`;
   }
