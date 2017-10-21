@@ -2,9 +2,9 @@ const logoTemplate = `<section class="logo" title="Угадай мелодию">
 
 const replayButtonTemplate = `<span role="button" tabindex="0" class="main-replay js-main-replay">Сыграть ещё раз</span>`;
 
-const getMistakesTemplate = (state) => {
+const getMistakesTemplate = (mistakesNumber) => {
   return `<div class="main-mistakes">
-            ${new Array(state.mistakes).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(``)}
+            ${new Array(mistakesNumber).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(``)}
           </div>`;
 };
 

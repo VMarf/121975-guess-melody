@@ -19,10 +19,10 @@ const getGenreAnswerTemplate = (answerNumber, songName, questionType, songSrc) =
 };
 
 // Получаем заполненный шаблон игрового экрана
-const getScreenLevelGenreTemplate = (state, question) => {
+const getScreenLevelGenreTemplate = (mistakesNumber, question) => {
   return `<section class="main main--level main--level-genre js-main">
             ${new TimerView().template}
-            ${getMistakesTemplate(state)}
+            ${getMistakesTemplate(mistakesNumber)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
                <form class="genre js-genre">
@@ -41,7 +41,7 @@ class LevelGenreView extends AbstractView {
   }
 
   get template() {
-    return getScreenLevelGenreTemplate(this.state, this.question);
+    return getScreenLevelGenreTemplate(this.state.mistakes, this.question);
   }
 
   bind() {

@@ -19,10 +19,10 @@ const getAnswerWrapperTemplate = (answerNumber, artistName, artistImage) => {
 };
 
 // Получаем заполненный шаблон игрового экрана
-const getScreenLevelArtistTemplate = (state, question) => {
+const getScreenLevelArtistTemplate = (mistakesNumber, question) => {
   return `<section class="main main--level main--level-artist js-main">
             ${new TimerView().template}
-            ${getMistakesTemplate(state)}
+            ${getMistakesTemplate(mistakesNumber)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
               ${getPlayerWrapperTemplate(question.type, question.songSrc)}
@@ -41,7 +41,7 @@ class LevelArtistView extends AbstractView {
   }
 
   get template() {
-    return getScreenLevelArtistTemplate(this.state, this.question);
+    return getScreenLevelArtistTemplate(this.state.mistakes, this.question);
   }
 
   bind() {
