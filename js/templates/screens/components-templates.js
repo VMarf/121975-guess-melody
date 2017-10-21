@@ -11,7 +11,7 @@ const getMistakesTemplate = (state) => {
 const getPlayerWrapperTemplate = (questionType, songSrc) => {
   return `<div class="player-wrapper">
             <div class="player">
-              <audio src="${songSrc}" ${questionType === `artist` ? `autoplay` : null}></audio>
+              <audio src="${songSrc}" ${questionType === `artist` ? `autoplay` : ``} loop></audio>
               <button class="player-control ${questionType === `artist` ? `player-control--pause` : `player-control--play`} js-song-play"></button>
               <div class="player-track">
                 <span class="player-status"></span>

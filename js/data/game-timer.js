@@ -1,19 +1,33 @@
 import Timer from '../utils/timer.js';
 
-// Создаем таймер
-const createGameTimer = (state, maxGameTime) => {
-  state.timer = new Timer(maxGameTime);
-};
+class GameTimer {
+  constructor(seconds) {
+    this.timer = new Timer(seconds);
+    this.timerInterval = null;
+    this.seconds = seconds;
+  }
 
-// Запускаем таймер
-const startGameTimer = (state, minTimerDangerZone) => {
-  return setInterval(() => {
+  get value() {
+    return this.seconds;
+  }
 
-    // Когда осталось менее 30 секунд таймер должен начать мигать красным цветом
-    if (state.timer.seconds < minTimerDangerZone) {}
+  start() {
+    this.timerInterval = setInterval(() => {
+      this.seconds = this.timer.tick();
 
-    state.timer.tick();
-  }, 1000);
-};
+      if (this.seconds === 0) {
+        this.stop();
+      }
 
-export {createGameTimer, startGameTimer};
+      this.onTick(this.seconds);
+    }, 1000);
+  }
+
+  stop() {
+    clearInterval(this.timerInterval);
+  }
+
+  onTick() {}
+}
+
+export default GameTimer;

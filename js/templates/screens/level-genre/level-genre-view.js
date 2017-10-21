@@ -45,10 +45,15 @@ class LevelGenreView extends AbstractView {
   }
 
   bind() {
+    const timerView = new TimerView();
     const genreForm = this._element.querySelector(`.js-genre`);
     const genrePlayButtons = Array.from(genreForm.querySelectorAll(`.js-song-play`));
     const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
     const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
+
+    this.state.timer.onTick = (seconds) => {
+      timerView.updateTime(seconds);
+    };
 
     genreForm.addEventListener(`click`, (evt) => this.onGenreFormClick(evt, genrePlayButtons));
 

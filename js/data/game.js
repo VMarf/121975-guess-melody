@@ -27,7 +27,7 @@ const initialState = {
       return GameSettings.MAX_GAME_TIME;
     }
 
-    return this.timer.seconds;
+    return this.timer.value;
   },
   resetToDefault() {
     this.timer = null;

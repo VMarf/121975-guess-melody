@@ -23,7 +23,7 @@ class WinResultView extends AbstractResultView {
     return `<h2 class="title">Вы настоящий меломан!</h2>
             <div class="main-stat">
               За
-              ${spentTime.minutes} ${declineWord(this.currentPlayer.spentTime / 60, WordsVariants.MINUTES)} 
+              ${spentTime.minutes} ${declineWord(Math.trunc(this.currentPlayer.spentTime / 60), WordsVariants.MINUTES)} 
               и 
               ${spentTime.seconds} ${declineWord(this.currentPlayer.spentTime % 60, WordsVariants.SECONDS)}
               <br>

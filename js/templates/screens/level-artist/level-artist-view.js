@@ -45,8 +45,13 @@ class LevelArtistView extends AbstractView {
   }
 
   bind() {
+    const timerView = new TimerView();
     const playButton = this._element.querySelector(`.js-song-play`);
     const answersList = this._element.querySelector(`.js-main-list`);
+
+    this.state.timer.onTick = (seconds) => {
+      timerView.updateTime(seconds);
+    };
 
     playButton.addEventListener(`click`, () => this.onPlayButtonClick(playButton));
 
