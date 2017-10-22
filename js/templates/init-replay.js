@@ -1,14 +1,20 @@
 import {initialState, currentPlayer} from '../data/game.js';
-import showScreen from './show-screen.js';
-import getScreenWelcome from './screens/welcome.js';
+import GameTimer from '../data/game-timer.js';
+import controlGame from './control-game.js';
 
 const initReplay = () => {
   const replay = document.querySelector(`.js-main-replay`);
 
+  initialState.timer.stop();
+
   const onReplayClick = () => {
     initialState.resetToDefault();
     currentPlayer.resetToDefault();
-    showScreen(getScreenWelcome(initialState));
+
+    // Начинаем новую игру
+    initialState.timer = new GameTimer(initialState.time);
+    initialState.timer.start();
+    controlGame(initialState);
   };
 
   replay.addEventListener(`click`, onReplayClick);
