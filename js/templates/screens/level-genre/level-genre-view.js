@@ -19,9 +19,9 @@ const getGenreAnswerTemplate = (answerNumber, songName, questionType, songSrc) =
 };
 
 // Получаем заполненный шаблон игрового экрана
-const getScreenLevelGenreTemplate = (mistakesNumber, question) => {
+const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) => {
   return `<section class="main main--level main--level-genre js-main">
-            ${new TimerView().template}
+            ${timerTemplate}
             ${getMistakesTemplate(mistakesNumber)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
@@ -34,26 +34,22 @@ const getScreenLevelGenreTemplate = (mistakesNumber, question) => {
 };
 
 class LevelGenreView extends AbstractView {
-  constructor(state, question) {
+  constructor(mistakesNumber, question) {
     super();
-    this.state = state;
+    this.mistakesNumber = mistakesNumber;
     this.question = question;
+    this.timerView = new TimerView();
   }
 
   get template() {
-    return getScreenLevelGenreTemplate(this.state.mistakes, this.question);
+    return getScreenLevelGenreTemplate(this.timerView.template, this.mistakesNumber, this.question);
   }
 
   bind() {
-    const timerView = new TimerView();
     const genreForm = this._element.querySelector(`.js-genre`);
     const genrePlayButtons = Array.from(genreForm.querySelectorAll(`.js-song-play`));
     const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
     const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
-
-    this.state.timer.onTick = (seconds) => {
-      timerView.updateTime(seconds);
-    };
 
     genreForm.addEventListener(`click`, (evt) => this.onGenreFormClick(evt, genrePlayButtons));
 
@@ -62,9 +58,51 @@ class LevelGenreView extends AbstractView {
     sendButton.addEventListener(`click`, (evt) => this.onSendButtonClick(evt, genreForm));
   }
 
-  onGenreFormClick() {}
-  onGenreFormChange() {}
-  onSendButtonClick() {}
+  updateTime(seconds) {
+    this.timerView.updateTime(seconds);
+  }
+
+  // Управление вопсроизведением трека при клике на кнопку play
+  onGenreFormClick(evt, playButtons) {
+    if (evt.target.closest(`.js-song-play`)) {
+      const currentPlayButton = evt.target;
+      const otherPlayButtons = playButtons.slice().filter((playButton) => playButton !== currentPlayButton);
+
+      evt.preventDefault();
+
+      otherPlayButtons.forEach((playButton) => {
+        playButton.classList.remove(`player-control--pause`);
+        playButton.previousElementSibling.pause();
+      });
+
+      currentPlayButton.classList.toggle(`player-control--pause`);
+
+      if (currentPlayButton.classList.contains(`player-control--pause`)) {
+        currentPlayButton.previousElementSibling.play();
+        return;
+      }
+
+      currentPlayButton.previousElementSibling.pause();
+    }
+  }
+
+  // Если выбран один из вариантов ответа или несколько, то кнопка отправки ответа становится доступной
+  onGenreFormChange(evt, checkboxes, button) {
+    if (evt.target.closest(`.js-genre-answer-input`)) {
+      button.disabled = !checkboxes.some((checkbox) => checkbox.checked);
+    }
+  }
+
+  // При клике на кнопку отправки ответа, собираем массив выбранных значений и отправляем
+  onSendButtonClick(evt, form) {
+    const genreAnswersCheckedInputs = Array.from(form.querySelectorAll(`.js-genre-answer-input:checked`));
+    const answers = genreAnswersCheckedInputs.map((checkedInput) => checkedInput.value);
+
+    evt.preventDefault();
+    this.onSendAnswer(answers);
+  }
+
+  onSendAnswer() {}
 }
 
 export default LevelGenreView;

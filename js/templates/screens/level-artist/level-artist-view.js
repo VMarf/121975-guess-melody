@@ -19,9 +19,9 @@ const getAnswerWrapperTemplate = (answerNumber, artistName, artistImage) => {
 };
 
 // Получаем заполненный шаблон игрового экрана
-const getScreenLevelArtistTemplate = (mistakesNumber, question) => {
+const getScreenLevelArtistTemplate = (timerTemplate, mistakesNumber, question) => {
   return `<section class="main main--level main--level-artist js-main">
-            ${new TimerView().template}
+            ${timerTemplate}
             ${getMistakesTemplate(mistakesNumber)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
@@ -34,31 +34,42 @@ const getScreenLevelArtistTemplate = (mistakesNumber, question) => {
 };
 
 class LevelArtistView extends AbstractView {
-  constructor(state, question) {
+  constructor(mistakesNumber, question) {
     super();
-    this.state = state;
+    this.mistakesNumber = mistakesNumber;
     this.question = question;
+    this.timerView = new TimerView();
   }
 
   get template() {
-    return getScreenLevelArtistTemplate(this.state.mistakes, this.question);
+    return getScreenLevelArtistTemplate(this.timerView.template, this.mistakesNumber, this.question);
   }
 
   bind() {
-    const timerView = new TimerView();
     const playButton = this._element.querySelector(`.js-song-play`);
     const answersList = this._element.querySelector(`.js-main-list`);
-
-    this.state.timer.onTick = (seconds) => {
-      timerView.updateTime(seconds);
-    };
 
     playButton.addEventListener(`click`, () => this.onPlayButtonClick(playButton));
 
     answersList.addEventListener(`click`, this.onAnswersListClick);
   }
 
-  onPlayButtonClick() {}
+  updateTime(seconds) {
+    this.timerView.updateTime(seconds);
+  }
+
+  // Управление воспроизведением трека
+  onPlayButtonClick(playButton) {
+    playButton.classList.toggle(`player-control--pause`);
+
+    if (playButton.classList.contains(`player-control--pause`)) {
+      playButton.previousElementSibling.play();
+      return;
+    }
+
+    playButton.previousElementSibling.pause();
+  }
+
   onAnswersListClick() {}
 }
 
