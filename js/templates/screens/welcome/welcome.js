@@ -1,19 +1,27 @@
 import GameTimer from '../../../data/game-timer.js';
+import showScreen from '../../show-screen.js';
 import controlGame from '../../control-game.js';
 import WelcomeView from './welcome-view.js';
 
-const getScreenWelcome = (state) => {
-  const screenWelcome = new WelcomeView();
+class Welcome {
+  constructor(state) {
+    this.state = state;
+    this.view = new WelcomeView();
 
-  screenWelcome.onStartButtonClick = () => {
+    this.view.onStartButtonClick = () => {
+      this.onStartGame();
+    };
+  }
 
-    // Начинаем игру
-    state.timer = new GameTimer(state.time);
-    state.timer.start();
-    controlGame(state);
-  };
+  init() {
+    showScreen(this.view.element);
+  }
 
-  return screenWelcome.element;
-};
+  onStartGame() {
+    this.state.timer = new GameTimer(this.state.time);
+    this.state.timer.start();
+    controlGame(this.state);
+  }
+}
 
-export default getScreenWelcome;
+export default Welcome;

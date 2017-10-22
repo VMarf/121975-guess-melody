@@ -1,28 +1,33 @@
 import checkAnswer from '../../../data/check-answer.js';
+import showScreen from '../../show-screen.js';
 import controlGame from '../../control-game.js';
 import LevelGenreView from './level-genre-view.js';
 
-const getScreenLevelGenre = (state, question, currentPlayer) => {
-  const screenLevelGenre = new LevelGenreView(state.mistakes, question);
+class LevelGenre {
+  constructor(state, question, currentPlayer) {
+    this.state = state;
+    this.question = question;
+    this.currentPlayer = currentPlayer;
+    this.view = new LevelGenreView(this.state.mistakes, this.question);
+    this.answerTimerValue = 0;
+    this.answerTimer = null;
 
-  // Сюда записываем сколько секунд потратил игрок на ответ
-  let answerTimerValue = 0;
+    this.view.onSendAnswer = (answer) => {
+      clearInterval(this.answerTimer);
+      checkAnswer(this.state, this.question, answer, this.answerTimerValue, this.currentPlayer);
+      controlGame(this.state);
+    };
+  }
 
-  const answerTimer = setInterval(() => answerTimerValue++, 1000);
+  init() {
+    this.answerTimer = setInterval(() => this.answerTimerValue++, 1000);
 
-  state.timer.onTick = (seconds) => {
-    screenLevelGenre.updateTime(seconds);
-  };
+    this.state.timer.onTick = (seconds) => {
+      this.view.updateTime(seconds);
+    };
 
-  // Останавливаем таймер ответа и отправляем ответ
-  // controlGame определит, какой экран показывать дальше
-  screenLevelGenre.onSendAnswer = (answer) => {
-    clearInterval(answerTimer);
-    checkAnswer(state, question, answer, answerTimerValue, currentPlayer);
-    controlGame(state);
-  };
+    showScreen(this.view.element);
+  }
+}
 
-  return screenLevelGenre.element;
-};
-
-export default getScreenLevelGenre;
+export default LevelGenre;

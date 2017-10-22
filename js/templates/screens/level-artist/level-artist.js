@@ -1,32 +1,37 @@
 import checkAnswer from '../../../data/check-answer.js';
+import showScreen from '../../show-screen.js';
 import controlGame from '../../control-game.js';
 import LevelArtistView from './level-artist-view.js';
 
-const getScreenLevelArtist = (state, question, currentPlayer) => {
-  const screenLevelArtist = new LevelArtistView(state.mistakes, question);
+class LevelArtist {
+  constructor(state, question, currentPlayer) {
+    this.state = state;
+    this.question = question;
+    this.currentPlayer = currentPlayer;
+    this.view = new LevelArtistView(this.state.mistakes, this.question);
+    this.answerTimerValue = 0;
+    this.answerTimer = null;
 
-  // Сюда записываем сколько секунд потратил игрок на ответ
-  let answerTimerValue = 0;
+    this.view.onAnswersListClick = (evt) => {
+      if (evt.target.closest(`.js-main-answer-r`)) {
+        const answer = evt.target.closest(`.js-main-answer-r`).value;
 
-  const answerTimer = setInterval(() => answerTimerValue++, 1000);
+        clearInterval(this.answerTimer);
+        checkAnswer(this.state, this.question, answer, this.answerTimerValue, this.currentPlayer);
+        controlGame(this.state);
+      }
+    };
+  }
 
-  state.timer.onTick = (seconds) => {
-    screenLevelArtist.updateTime(seconds);
-  };
+  init() {
+    this.answerTimer = setInterval(() => this.answerTimerValue++, 1000);
 
-  // Останавливаем таймер ответа и отправляем ответ
-  // controlGame определит, какой экран показывать дальше
-  screenLevelArtist.onAnswersListClick = (evt) => {
-    if (evt.target.closest(`.js-main-answer-r`)) {
-      const answer = evt.target.closest(`.js-main-answer-r`).value;
+    this.state.timer.onTick = (seconds) => {
+      this.view.updateTime(seconds);
+    };
 
-      clearInterval(answerTimer);
-      checkAnswer(state, question, answer, answerTimerValue, currentPlayer);
-      controlGame(state);
-    }
-  };
+    showScreen(this.view.element);
+  }
+}
 
-  return screenLevelArtist.element;
-};
-
-export default getScreenLevelArtist;
+export default LevelArtist;
