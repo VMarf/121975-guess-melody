@@ -1,9 +1,15 @@
+import showScreen from '../../show-screen.js';
 import FailResultView from './fail-result-view.js';
 
-const getScreenFailResult = (state) => {
-  const screenFailResult = new FailResultView(state);
+class FailResult {
+  constructor(state) {
+    this.state = state;
+    this.view = new FailResultView(this.state);
+  }
 
-  return screenFailResult.element;
-};
+  init() {
+    showScreen(this.view.element);
+  }
+}
 
-export default getScreenFailResult;
+export default FailResult;

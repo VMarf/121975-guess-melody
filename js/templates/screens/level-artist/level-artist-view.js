@@ -51,7 +51,7 @@ class LevelArtistView extends AbstractView {
 
     playButton.addEventListener(`click`, () => this.onPlayButtonClick(playButton));
 
-    answersList.addEventListener(`click`, this.onAnswersListClick);
+    answersList.addEventListener(`click`, (evt) => this.onAnswersListClick(evt));
   }
 
   updateTime(seconds) {
@@ -70,7 +70,15 @@ class LevelArtistView extends AbstractView {
     playButton.previousElementSibling.pause();
   }
 
-  onAnswersListClick() {}
+  onAnswersListClick(evt) {
+    if (evt.target.closest(`.js-main-answer-r`)) {
+      const answer = evt.target.closest(`.js-main-answer-r`).value;
+
+      this.onSendAnswer(answer);
+    }
+  }
+
+  onSendAnswer() {}
 }
 
 export default LevelArtistView;
