@@ -12,14 +12,10 @@ class LevelArtist {
     this.answerTimerValue = 0;
     this.answerTimer = null;
 
-    this.view.onAnswersListClick = (evt) => {
-      if (evt.target.closest(`.js-main-answer-r`)) {
-        const answer = evt.target.closest(`.js-main-answer-r`).value;
-
-        clearInterval(this.answerTimer);
-        checkAnswer(this.state, this.question, answer, this.answerTimerValue, this.currentPlayer);
-        controlGame(this.state);
-      }
+    this.view.onSendAnswer = (answer) => {
+      clearInterval(this.answerTimer);
+      checkAnswer(this.state, this.question, answer, this.answerTimerValue, this.currentPlayer);
+      controlGame(this.state);
     };
   }
 
