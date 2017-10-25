@@ -20,6 +20,7 @@ const WordsVariants = {
 
 const initialState = {
   timer: null,
+  timerStrokeDashoffset: 0,
   mistakes: 0,
   level: 0,
   get time() {
@@ -31,6 +32,7 @@ const initialState = {
   },
   resetToDefault() {
     this.timer = null;
+    this.timerStrokeDashoffset = 0;
     this.mistakes = 0;
     this.level = 0;
   }
