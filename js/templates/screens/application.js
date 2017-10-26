@@ -9,6 +9,7 @@ const ControllerId = {
   LEVEL_ARTIST: `levelArtist`,
   LEVEL_GENRE: `levelGenre`,
   WIN_RESULT: `winResult`,
+  FAIL_RESULT: `failResult`
 };
 
 const routes = {
@@ -16,14 +17,15 @@ const routes = {
   [ControllerId.LEVEL_ARTIST]: LevelArtist,
   [ControllerId.LEVEL_GENRE]: LevelGenre,
   [ControllerId.WIN_RESULT]: WinResult,
+  [ControllerId.FAIL_RESULT]: FailResult
 };
 
 const saveState = (state) => {
-  return JSON.stringify(state);
+  return window.btoa(JSON.stringify(state));
 };
 
 const loadState = (dataString) => {
-  return JSON.parse(dataString);
+  return JSON.parse(window.atob(dataString));
 };
 
 class Application {
@@ -34,19 +36,16 @@ class Application {
       this.changeHash(id, data);
     };
 
-    window.addEventListener(`hashchange`, onHashChange, false);
+    window.addEventListener(`hashchange`, onHashChange);
+    onHashChange();
   }
 
   static changeHash(id, data) {
-    const controller = routes[id];
+    const Controller = routes[id];
 
-    if (controller) {
-      new controller(loadState(data)).init();
+    if (Controller) {
+      new Controller(loadState(data)).init();
     }
-
-    // console.log(id);
-    // console.log(data);
-    // console.log(loadState(data));
   }
 
   static showWelcome(state) {
@@ -57,10 +56,6 @@ class Application {
   static showLevelArtist(state, question, currentPlayer) {
     new LevelArtist(state, question, currentPlayer).init();
     // location.hash = `${ControllerId.LEVEL_ARTIST}?${saveState({state, question, currentPlayer})}`;
-
-    // location.hash = `${ControllerId.LEVEL_ARTIST}?${saveState(state)}`;
-
-    console.log(loadState(saveState({state, question, currentPlayer})));
   }
 
   static showLevelGenre(state, question, currentPlayer) {
