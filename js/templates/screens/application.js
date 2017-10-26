@@ -21,11 +21,13 @@ const routes = {
 };
 
 const saveState = (state) => {
-  return window.btoa(JSON.stringify(state));
+  // return window.btoa(JSON.stringify(state));
+  return JSON.stringify(state);
 };
 
 const loadState = (dataString) => {
-  return JSON.parse(window.atob(dataString));
+  // return JSON.parse(window.atob(dataString));
+  return JSON.parse(dataString);
 };
 
 class Application {
@@ -49,27 +51,33 @@ class Application {
   }
 
   static showWelcome(state) {
-    new Welcome(state).init();
-    // location.hash = `${ControllerId.WELCOME}?${saveState(state)}`;
+    location.hash = `${ControllerId.WELCOME}?${saveState(state)}`;
   }
 
-  static showLevelArtist(state, question, currentPlayer) {
-    new LevelArtist(state, question, currentPlayer).init();
-    // location.hash = `${ControllerId.LEVEL_ARTIST}?${saveState({state, question, currentPlayer})}`;
+  static showLevelArtist(state) {
+    if (state.level === 0) {
+      location.hash = `${ControllerId.LEVEL_ARTIST}?${saveState(state)}`;
+      return;
+    }
+
+    new LevelArtist(state).init();
   }
 
-  static showLevelGenre(state, question, currentPlayer) {
-    new LevelGenre(state, question, currentPlayer).init();
-    // location.hash = `${ControllerId.LEVEL_GENRE}?${saveState({state, question, currentPlayer})}`;
+  static showLevelGenre(state) {
+    if (state.level === 0) {
+      location.hash = `${ControllerId.LEVEL_GENRE}?${saveState(state)}`;
+      return;
+    }
+
+    new LevelGenre(state).init();
   }
 
-  static showWinResult(maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers) {
-    new WinResult(maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers).init();
-    // location.hash = `${ControllerId.WIN_RESULT}?${saveState({maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers})}`;
+  static showWinResult(state) {
+    location.hash = `${ControllerId.WIN_RESULT}?${saveState(state)}`;
   }
 
   static showFailResult(state) {
-    new FailResult(state).init();
+    location.hash = `${ControllerId.FAIL_RESULT}?${saveState(state)}`;
   }
 }
 

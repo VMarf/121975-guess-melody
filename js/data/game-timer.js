@@ -7,10 +7,6 @@ class GameTimer {
     this.seconds = seconds;
   }
 
-  get value() {
-    return this.seconds;
-  }
-
   start() {
     this.timerInterval = setInterval(() => {
       this.seconds = this.timer.tick();
