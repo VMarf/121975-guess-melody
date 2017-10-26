@@ -13,8 +13,6 @@ class LevelGenre {
     this.answerTimer = null;
 
     this.view.onSendAnswer = (answer) => {
-      this.state.timerStrokeDashoffset = document.querySelector(`.js-timer-line`).style.strokeDashoffset;
-
       clearInterval(this.answerTimer);
       checkAnswer(this.state, this.question, answer, this.answerTimerValue, currentPlayer);
       controlGame(this.state);

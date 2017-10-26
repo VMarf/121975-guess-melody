@@ -1,3 +1,4 @@
+import GameTimer from '../../data/game-timer.js';
 import Welcome from './welcome/welcome.js';
 import LevelArtist from './level-artist/level-artist.js';
 import LevelGenre from './level-genre/level-genre.js';
@@ -21,13 +22,11 @@ const routes = {
 };
 
 const saveState = (state) => {
-  // return window.btoa(JSON.stringify(state));
-  return JSON.stringify(state);
+  return window.btoa(JSON.stringify(state));
 };
 
 const loadState = (dataString) => {
-  // return JSON.parse(window.atob(dataString));
-  return JSON.parse(dataString);
+  return JSON.parse(window.atob(dataString));
 };
 
 class Application {
@@ -56,27 +55,24 @@ class Application {
 
   static showLevelArtist(state) {
     if (state.level === 0) {
-      location.hash = `${ControllerId.LEVEL_ARTIST}?${saveState(state)}`;
-      return;
+      state.timer = new GameTimer(state.time);
+      state.timer.start();
     }
 
     new LevelArtist(state).init();
   }
 
   static showLevelGenre(state) {
-    if (state.level === 0) {
-      location.hash = `${ControllerId.LEVEL_GENRE}?${saveState(state)}`;
-      return;
-    }
-
     new LevelGenre(state).init();
   }
 
   static showWinResult(state) {
+    state.timer.stop();
     location.hash = `${ControllerId.WIN_RESULT}?${saveState(state)}`;
   }
 
   static showFailResult(state) {
+    state.timer.stop();
     location.hash = `${ControllerId.FAIL_RESULT}?${saveState(state)}`;
   }
 }

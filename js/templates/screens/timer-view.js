@@ -25,7 +25,9 @@ class TimerView {
   updateTime(seconds) {
     const newTime = convertSecondsToMinutes(seconds);
 
-    document.querySelector(`.js-timer-line`).style.strokeDashoffset = getStrokeDashoffsetValue(STROKE_DASHARRAY, GameSettings.MAX_GAME_TIME, seconds);
+    initialState.timerStrokeDashoffset = getStrokeDashoffsetValue(STROKE_DASHARRAY, GameSettings.MAX_GAME_TIME, seconds);
+
+    document.querySelector(`.js-timer-line`).style.strokeDashoffset = initialState.timerStrokeDashoffset;
     document.querySelector(`.js-timer-value-mins`).innerText = newTime.minutes;
     document.querySelector(`.js-timer-value-secs`).innerText = newTime.seconds;
 

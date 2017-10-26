@@ -1,5 +1,4 @@
 import {GameSettings, questions} from '../data/game.js';
-import initReplay from './init-replay.js';
 import Application from './screens/application.js';
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
@@ -19,7 +18,6 @@ const controlGame = (state) => {
   // Если кончилось время или игрок совершил максимально возможное количество ошибок
   if (state.time === 0 || state.mistakes > GameSettings.MAX_COUNT_MISTAKES) {
     Application.showFailResult(state);
-    initReplay();
     return;
   }
 
@@ -32,7 +30,6 @@ const controlGame = (state) => {
   // Если игрок прошел все уровни
   if (state.level === GameSettings.MAX_COUNT_LEVELS) {
     Application.showWinResult(state);
-    initReplay();
   }
 };
 
