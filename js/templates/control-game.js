@@ -29,7 +29,9 @@ const controlGame = (state) => {
 
   // Если игрок прошел все уровни
   if (state.level === GameSettings.MAX_COUNT_LEVELS) {
-    Application.showWinResult(state);
+    const finalState = state;
+
+    Application.showWinResult(finalState);
   }
 };
 

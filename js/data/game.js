@@ -102,6 +102,7 @@ const questions = [
   }
 ];
 
+// @TODO: Удалить
 // const currentPlayer = {
 //   score: 0,
 //   remainingTime: initialState.time,
@@ -119,14 +120,8 @@ const questions = [
 // };
 
 const currentPlayer = {
-  score: 0,
-  remainingTime: initialState.time,
-  remainingNotes: GameSettings.MAX_COUNT_NOTES - initialState.mistakes,
   answers: [], // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах
   resetToDefault() {
-    this.score = 0;
-    this.remainingTime = initialState.time;
-    this.remainingNotes = GameSettings.MAX_COUNT_NOTES - initialState.mistakes;
     this.answers = [];
   }
 };
