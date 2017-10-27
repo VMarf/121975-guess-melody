@@ -1,4 +1,5 @@
 import showScreen from '../../show-screen.js';
+import initReplay from '../../init-replay.js';
 import FailResultView from './fail-result-view.js';
 
 class FailResult {
@@ -9,6 +10,7 @@ class FailResult {
 
   init() {
     showScreen(this.view.element);
+    initReplay();
   }
 }
 

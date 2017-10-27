@@ -1,5 +1,3 @@
-// Music from https://www.youtube.com/audiolibrary/music?feature=blog
-
 export default [
   {
     artist: `Kevin MacLeod`,

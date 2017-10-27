@@ -1,4 +1,3 @@
-import GameTimer from '../../../data/game-timer.js';
 import showScreen from '../../show-screen.js';
 import controlGame from '../../control-game.js';
 import WelcomeView from './welcome-view.js';
@@ -18,8 +17,6 @@ class Welcome {
   }
 
   onStartGame() {
-    this.state.timer = new GameTimer(this.state.time);
-    this.state.timer.start();
     controlGame(this.state);
   }
 }

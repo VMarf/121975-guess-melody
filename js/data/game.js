@@ -19,18 +19,15 @@ const WordsVariants = {
 };
 
 const initialState = {
+  time: GameSettings.MAX_GAME_TIME,
   timer: null,
+  timerStrokeDashoffset: 0,
   mistakes: 0,
   level: 0,
-  get time() {
-    if (this.timer === null) {
-      return GameSettings.MAX_GAME_TIME;
-    }
-
-    return this.timer.value;
-  },
   resetToDefault() {
+    this.time = GameSettings.MAX_GAME_TIME;
     this.timer = null;
+    this.timerStrokeDashoffset = 0;
     this.mistakes = 0;
     this.level = 0;
   }
@@ -106,17 +103,8 @@ const questions = [
 ];
 
 const currentPlayer = {
-  score: 0,
-  remainingTime: initialState.time,
-  remainingNotes: GameSettings.MAX_COUNT_NOTES - initialState.mistakes,
   answers: [], // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах
-  get spentTime() {
-    return GameSettings.MAX_GAME_TIME - initialState.time;
-  },
   resetToDefault() {
-    this.score = 0;
-    this.remainingTime = initialState.time;
-    this.remainingNotes = GameSettings.MAX_COUNT_NOTES - initialState.mistakes;
     this.answers = [];
   }
 };

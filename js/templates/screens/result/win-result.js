@@ -1,17 +1,16 @@
 import showScreen from '../../show-screen.js';
+import initReplay from '../../init-replay.js';
 import WinResultView from './win-result-view.js';
 
 class WinResult {
-  constructor(maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers) {
-    this.maxQuickAnswerTime = maxQuickAnswerTime;
+  constructor(state) {
     this.state = state;
-    this.currentPlayer = currentPlayer;
-    this.resultsOtherPlayers = resultsOtherPlayers;
-    this.view = new WinResultView(this.maxQuickAnswerTime, this.state, this.currentPlayer, this.resultsOtherPlayers);
+    this.view = new WinResultView(this.state);
   }
 
   init() {
     showScreen(this.view.element);
+    initReplay();
   }
 }
 
