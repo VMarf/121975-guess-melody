@@ -1,4 +1,6 @@
-import {GameSettings, questions} from '../data/game.js';
+import {GameSettings, questions, currentPlayer, playersStats} from '../data/game.js';
+import getPlayerScore from '../data/get-player-score.js';
+import getPlayerResult from '../data/get-player-result.js';
 import Application from './screens/application.js';
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
@@ -11,6 +13,24 @@ const checkQuestionType = (state, question) => {
   if (question.type === `genre`) {
     Application.showLevelGenre(state);
   }
+};
+
+const fillFinalState = (state) => {
+  const finalState = {
+    timer: state.timer,
+    mistakes: state.mistakes,
+    currentPlayer: {
+      remainingTime: state.time,
+      remainingNotes: GameSettings.MAX_COUNT_NOTES - state.mistakes,
+      numberQuickAnswers: currentPlayer.answers.filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME).length
+    }
+  };
+
+  finalState.currentPlayer.spentTime = GameSettings.MAX_GAME_TIME - finalState.currentPlayer.remainingTime;
+  finalState.currentPlayer.score = getPlayerScore(currentPlayer.answers, finalState.currentPlayer.remainingNotes);
+  finalState.currentPlayer.result = getPlayerResult(playersStats, finalState.currentPlayer);
+
+  return finalState;
 };
 
 const controlGame = (state) => {
@@ -29,7 +49,7 @@ const controlGame = (state) => {
 
   // Если игрок прошел все уровни
   if (state.level === GameSettings.MAX_COUNT_LEVELS) {
-    const finalState = state;
+    const finalState = fillFinalState(state);
 
     Application.showWinResult(finalState);
   }

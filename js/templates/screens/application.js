@@ -22,11 +22,11 @@ const routes = {
 };
 
 const saveState = (state) => {
-  return window.btoa(JSON.stringify(state));
+  return window.btoa(encodeURIComponent(JSON.stringify(state)));
 };
 
 const loadState = (dataString) => {
-  return JSON.parse(window.atob(dataString));
+  return JSON.parse(decodeURIComponent(window.atob(dataString)));
 };
 
 class Application {
