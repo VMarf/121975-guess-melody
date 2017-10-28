@@ -21,13 +21,11 @@ const WordsVariants = {
 const initialState = {
   time: GameSettings.MAX_GAME_TIME,
   timer: null,
-  timerStrokeDashoffset: 0,
   mistakes: 0,
   level: 0,
   resetToDefault() {
     this.time = GameSettings.MAX_GAME_TIME;
     this.timer = null;
-    this.timerStrokeDashoffset = 0;
     this.mistakes = 0;
     this.level = 0;
   }

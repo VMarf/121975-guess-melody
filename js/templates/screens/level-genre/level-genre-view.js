@@ -34,11 +34,11 @@ const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) =>
 };
 
 class LevelGenreView extends AbstractView {
-  constructor(mistakesNumber, question) {
+  constructor(time, mistakesNumber, question) {
     super();
     this.mistakesNumber = mistakesNumber;
     this.question = question;
-    this.timerView = new TimerView();
+    this.timerView = new TimerView(time);
   }
 
   get template() {
