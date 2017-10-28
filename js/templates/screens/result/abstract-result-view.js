@@ -1,4 +1,4 @@
-import AbstractView from '../../../abstract-view.js';
+import AbstractView from '../abstract-view.js';
 import {logoTemplate, replayButtonTemplate} from '../components-templates.js';
 
 class AbstractResultView extends AbstractView {

@@ -1,4 +1,4 @@
-import AbstractView from '../../../abstract-view.js';
+import AbstractView from '../abstract-view.js';
 import TimerView from '../timer-view.js';
 import {getMistakesTemplate, getPlayerWrapperTemplate} from '../components-templates.js';
 
