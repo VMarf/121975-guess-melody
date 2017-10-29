@@ -1,6 +1,6 @@
 import Loader from './data/loader.js';
 import adaptQuestions from './data/adapt-questions.js';
-import {questions} from './data/game.js';
+import {fillQuestions} from './data/game.js';
 import GameTimer from './data/game-timer.js';
 import Welcome from './templates/screens/welcome/welcome.js';
 import LevelArtist from './templates/screens/level-artist/level-artist.js';
@@ -32,9 +32,16 @@ const loadState = (dataString) => {
   return JSON.parse(decodeURIComponent(window.atob(dataString)));
 };
 
+const checkGameTimer = (state) => {
+  if (state.level === 0) {
+    state.timer = new GameTimer(state.time);
+    state.timer.start();
+  }
+};
+
 class Application {
   static init(loadedData) {
-    questions = loadedData.slice();
+    fillQuestions(loadedData);
 
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
@@ -59,15 +66,12 @@ class Application {
   }
 
   static showLevelArtist(state) {
-    if (state.level === 0) {
-      state.timer = new GameTimer(state.time);
-      state.timer.start();
-    }
-
+    checkGameTimer(state);
     new LevelArtist(state).init();
   }
 
   static showLevelGenre(state) {
+    checkGameTimer(state);
     new LevelGenre(state).init();
   }
 

@@ -18,9 +18,6 @@ const getGenreAnswerTemplate = (answerNumber, questionType, songSrc) => {
           </div>`;
 };
 
-// @TODO: Удалить
-// question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, question.type, answer.src), ``)
-
 // Получаем заполненный шаблон игрового экрана
 const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) => {
   return `<section class="main main--level main--level-genre js-main">
