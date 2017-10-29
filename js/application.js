@@ -1,9 +1,12 @@
-import GameTimer from '../../data/game-timer.js';
-import Welcome from './welcome/welcome.js';
-import LevelArtist from './level-artist/level-artist.js';
-import LevelGenre from './level-genre/level-genre.js';
-import WinResult from './result/win-result.js';
-import FailResult from './result/fail-result.js';
+import Loader from './data/loader.js';
+import adaptQuestions from './data/adapt-questions.js';
+import {questions} from './data/game.js';
+import GameTimer from './data/game-timer.js';
+import Welcome from './templates/screens/welcome/welcome.js';
+import LevelArtist from './templates/screens/level-artist/level-artist.js';
+import LevelGenre from './templates/screens/level-genre/level-genre.js';
+import WinResult from './templates/screens/result/win-result.js';
+import FailResult from './templates/screens/result/fail-result.js';
 
 const ControllerId = {
   WELCOME: `welcome`,
@@ -30,7 +33,9 @@ const loadState = (dataString) => {
 };
 
 class Application {
-  static init() {
+  static init(loadedData) {
+    questions = loadedData.slice();
+
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
@@ -77,6 +82,9 @@ class Application {
   }
 }
 
-Application.init();
+Loader.loadData().
+    then((loadedData) => adaptQuestions(loadedData)).
+    then((adaptedLoadedData) => Application.init(adaptedLoadedData)).
+    catch(Loader.onError);
 
 export default Application;

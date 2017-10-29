@@ -10,13 +10,16 @@ const getTitleTemplate = (text) => {
 };
 
 // Получаем заполненный шаблон одного варианта ответа
-const getGenreAnswerTemplate = (answerNumber, songName, questionType, songSrc) => {
+const getGenreAnswerTemplate = (answerNumber, questionType, songSrc) => {
   return `<div class="genre-answer">
             ${getPlayerWrapperTemplate(questionType, songSrc)}
-            <input class="js-genre-answer-input" type="checkbox" name="answer" value="${songName}" id="a-${answerNumber}">
+            <input class="js-genre-answer-input" type="checkbox" name="answer" value="${songSrc}" id="a-${answerNumber}">
             <label class="genre-answer-check" for="a-${answerNumber}"></label>
           </div>`;
 };
+
+// @TODO: Удалить
+// question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, question.type, answer.src), ``)
 
 // Получаем заполненный шаблон игрового экрана
 const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) => {
@@ -26,7 +29,7 @@ const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) =>
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
                <form class="genre js-genre">
-                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, answer.name, question.type, answer.src), ``)}
+                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, question.type, answer), ``)}
                 ${answerSendButtonTemplate}
                </form>
             </div>

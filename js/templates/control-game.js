@@ -1,7 +1,7 @@
 import {GameSettings, questions, currentPlayer, playersStats} from '../data/game.js';
 import getPlayerScore from '../data/get-player-score.js';
 import getPlayerResult from '../data/get-player-result.js';
-import Application from './screens/application.js';
+import Application from '../application.js';
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
 const checkQuestionType = (state, question) => {
