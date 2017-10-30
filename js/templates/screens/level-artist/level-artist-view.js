@@ -1,4 +1,4 @@
-import AbstractView from '../../../abstract-view.js';
+import AbstractView from '../abstract-view.js';
 import TimerView from '../timer-view.js';
 import {getMistakesTemplate, getPlayerWrapperTemplate} from '../components-templates.js';
 
@@ -34,11 +34,11 @@ const getScreenLevelArtistTemplate = (timerTemplate, mistakesNumber, question) =
 };
 
 class LevelArtistView extends AbstractView {
-  constructor(mistakesNumber, question) {
+  constructor(time, mistakesNumber, question) {
     super();
     this.mistakesNumber = mistakesNumber;
     this.question = question;
-    this.timerView = new TimerView();
+    this.timerView = new TimerView(time);
   }
 
   get template() {

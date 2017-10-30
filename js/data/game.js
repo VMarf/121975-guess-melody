@@ -1,5 +1,3 @@
-import songs from './songs.js';
-
 const GameSettings = {
   MAX_GAME_TIME: 300, // секунды
   MAX_QUICK_ANSWER_TIME: 30, // секунды
@@ -21,86 +19,21 @@ const WordsVariants = {
 const initialState = {
   time: GameSettings.MAX_GAME_TIME,
   timer: null,
-  timerStrokeDashoffset: 0,
   mistakes: 0,
   level: 0,
   resetToDefault() {
     this.time = GameSettings.MAX_GAME_TIME;
     this.timer = null;
-    this.timerStrokeDashoffset = 0;
     this.mistakes = 0;
     this.level = 0;
   }
 };
 
-// Список правильных вариантов ответов для быстрого теста - 2, 1, 1, 3, 3, 4, 3, 1, 2, 2
-const questions = [
-  {
-    type: `artist`,
-    title: `Кто исполняет эту песню?`,
-    songSrc: songs[1].src,
-    answerList: [songs[0], songs[1], songs[2]],
-    correctAnswer: songs[1].artist
-  },
-  {
-    type: `genre`,
-    title: `Выберите кантри треки`,
-    answerList: [songs[2], songs[3], songs[4], songs[5]],
-    correctAnswer: [songs[2].name]
-  },
-  {
-    type: `artist`,
-    title: `Кто исполняет эту песню?`,
-    songSrc: songs[0].src,
-    answerList: [songs[0], songs[1], songs[2]],
-    correctAnswer: songs[0].artist
-  },
-  {
-    type: `genre`,
-    title: `Выберите поп треки`,
-    answerList: [songs[2], songs[3], songs[4], songs[5]],
-    correctAnswer: [songs[4].name]
-  },
-  {
-    type: `artist`,
-    title: `Кто исполняет эту песню?`,
-    songSrc: songs[2].src,
-    answerList: [songs[0], songs[1], songs[2]],
-    correctAnswer: songs[2].artist
-  },
-  {
-    type: `genre`,
-    title: `Выберите электронные треки`,
-    answerList: [songs[2], songs[3], songs[4], songs[5]],
-    correctAnswer: [songs[5].name]
-  },
-  {
-    type: `artist`,
-    title: `Кто исполняет эту песню?`,
-    songSrc: songs[5].src,
-    answerList: [songs[3], songs[4], songs[5]],
-    correctAnswer: songs[5].artist
-  },
-  {
-    type: `genre`,
-    title: `Выберите джаз треки`,
-    answerList: [songs[0], songs[1], songs[2], songs[3]],
-    correctAnswer: [songs[0].name]
-  },
-  {
-    type: `artist`,
-    title: `Кто исполняет эту песню?`,
-    songSrc: songs[4].src,
-    answerList: [songs[3], songs[4], songs[5]],
-    correctAnswer: songs[4].artist
-  },
-  {
-    type: `genre`,
-    title: `Выберите рок треки`,
-    answerList: [songs[0], songs[1], songs[2], songs[3]],
-    correctAnswer: [songs[1].name]
-  }
-];
+let questions = [];
+
+const fillQuestions = (loadedData) => {
+  questions = loadedData;
+};
 
 const currentPlayer = {
   answers: [], // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах
@@ -111,4 +44,4 @@ const currentPlayer = {
 
 const playersStats = [4, 5, 8, 10, 11, 15, 19];
 
-export {GameSettings, WordsVariants, initialState, questions, currentPlayer, playersStats};
+export {GameSettings, WordsVariants, initialState, questions, fillQuestions, currentPlayer, playersStats};

@@ -8,7 +8,7 @@ class LevelGenre {
   constructor(state) {
     this.state = state;
     this.question = questions[this.state.level];
-    this.view = new LevelGenreView(this.state.mistakes, this.question);
+    this.view = new LevelGenreView(this.state.time, this.state.mistakes, this.question);
     this.answerTimerValue = 0;
     this.answerTimer = null;
 
