@@ -43,6 +43,8 @@ class Application {
   static init(loadedData) {
     fillQuestions(loadedData);
 
+    console.log(loadedData);
+
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
@@ -77,7 +79,9 @@ class Application {
 
   static showWinResult(state) {
     state.timer.stop();
-    location.hash = `${ControllerId.WIN_RESULT}?${saveState(state)}`;
+    Loader.saveResults(state).then(() => {
+      location.hash = `${ControllerId.WIN_RESULT}?${saveState(state)}`;
+    });
   }
 
   static showFailResult(state) {
