@@ -1,9 +1,18 @@
 // Проверяем элемент в массиве
-const checkArrayHasElement = (array, element) => {
+const checkArrayHasElement = (element, array) => {
   const elementIndex = array.indexOf(element);
 
   // Если элемент в массиве есть, возвращаем true, если нет, возвращаем false
   return elementIndex > -1;
+};
+
+// Проверяем ответ для игровых экранов с выбором жанра
+const checkGenreAnswer = (answer, correctAnswer) => {
+  if (answer.length === correctAnswer.length) {
+    return answer.every((answerItem) => checkArrayHasElement(answerItem, correctAnswer));
+  }
+
+  return false;
 };
 
 // Добавляем ответ к остальным ответам игрока
@@ -38,7 +47,7 @@ const checkAnswer = (state, question, answer, answerTime, currentPlayer) => {
   if (question.type === `genre`) {
 
     // Узнаем правильный ответ или нет
-    answerBoolean = answer.every((answerItem) => checkArrayHasElement(question.correctAnswer, answerItem));
+    answerBoolean = checkGenreAnswer(answer, question.correctAnswer);
 
     addPlayerAnswer(state, currentPlayer, answerBoolean, answerTime);
   }
