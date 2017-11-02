@@ -1,23 +1,5 @@
 const getPlayerResult = (resultsOtherPlayers, resultCurrentPlayer) => {
 
-  // Пример resultCurrentPlayer
-  //
-  // {
-  //   score: 10,
-  //   remainingNotes: 1,
-  //   remainingTime: 60 (секунды)
-  // }
-
-  // Если у игрока кончилось время
-  if (resultCurrentPlayer.remainingTime === 0) {
-    return `Время вышло! Вы не успели отгадать все мелодии.`;
-  }
-
-  // Если у игрока кончились ноты
-  if (resultCurrentPlayer.remainingNotes < 0) {
-    return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
-  }
-
   // Так как мы меняем переданный в функцию массив, нужно его скопировать
   const playersStats = resultsOtherPlayers.slice();
 
@@ -34,8 +16,11 @@ const getPlayerResult = (resultsOtherPlayers, resultCurrentPlayer) => {
   // Дополнительно умножаем на 100, так как выводим полученное число в процентах
   const defeatedPlayers = currentPlayerIndex / playersStats.length * 100;
 
-  // Если игрок успешно закончил игру, возвращаем его результат
-  return `Вы заняли ${currentPlayerPlace}-е место из ${playersStats.length} игроков. Это лучше чем у ${defeatedPlayers}% игроков.`;
+  return {
+    playersStats,
+    currentPlayerPlace,
+    defeatedPlayers
+  };
 };
 
 export default getPlayerResult;

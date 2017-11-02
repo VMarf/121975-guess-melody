@@ -40,6 +40,8 @@ const fillQuestions = (loadedData) => {
   questions = loadedData;
 };
 
+const getQuestions = () => questions;
+
 const currentPlayer = {
   answers: [], // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах
   resetToDefault() {
@@ -49,4 +51,4 @@ const currentPlayer = {
 
 const playersStats = [4, 5, 8, 10, 11, 15, 19];
 
-export {GameSettings, QuestionTypes, WordsVariants, initialState, questions, fillQuestions, currentPlayer, playersStats};
+export {GameSettings, QuestionTypes, WordsVariants, initialState, fillQuestions, getQuestions, currentPlayer, playersStats};

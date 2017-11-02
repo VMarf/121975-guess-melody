@@ -1,13 +1,15 @@
 import {WordsVariants} from '../../../data/game.js';
 import convertSecondsToMinutes from '../../../utils/convert-seconds-to-minutes.js';
 import declineWord from '../../../utils/decline-word.js';
+import getPlayerResultText from '../../get-player-result-text.js';
 import AbstractResultView from './abstract-result-view.js';
 
 class WinResultView extends AbstractResultView {
-  constructor(state) {
+  constructor(state, result) {
     super();
     this.state = state;
     this.currentPlayer = this.state.currentPlayer;
+    this.result = result;
   }
 
   getInfoTemplate() {
@@ -17,7 +19,7 @@ class WinResultView extends AbstractResultView {
     const score = `${this.currentPlayer.score} ${declineWord(this.currentPlayer.score, WordsVariants.SCORE)}`;
     const quickAnswers = `${this.currentPlayer.numberQuickAnswers} ${declineWord(this.currentPlayer.numberQuickAnswers, WordsVariants.FAST)}`;
     const mistakes = `${this.state.mistakes} ${declineWord(this.state.mistakes, WordsVariants.MISTAKES)}`;
-    const result = this.currentPlayer.result;
+    const resultText = getPlayerResultText(this.currentPlayer, this.result);
 
     return `<h2 class="title">Вы настоящий меломан!</h2>
             <div class="main-stat">
@@ -27,7 +29,7 @@ class WinResultView extends AbstractResultView {
               <br>
               совершив ${mistakes}
             </div>
-            <span class="main-comparison">${result}</span>`;
+            <span class="main-comparison">${resultText}</span>`;
   }
 }
 

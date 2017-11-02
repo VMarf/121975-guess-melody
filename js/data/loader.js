@@ -5,7 +5,7 @@ const DEFAULT_USERNAME = `marfinvlad-id121975`;
 
 class Loader {
   static loadData() {
-    return fetch(`${SERVER_URL}/questios`).then((response) => {
+    return fetch(`${SERVER_URL}/questions`).then((response) => {
       if (response.ok) {
         return response.json();
       } else {

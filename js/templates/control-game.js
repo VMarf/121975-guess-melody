@@ -1,7 +1,10 @@
-import {GameSettings, QuestionTypes, questions, currentPlayer, playersStats} from '../data/game.js';
+import {GameSettings, QuestionTypes, getQuestions, currentPlayer} from '../data/game.js';
 import getPlayerScore from '../data/get-player-score.js';
-import getPlayerResult from '../data/get-player-result.js';
 import Application from '../application.js';
+
+const questions = getQuestions();
+
+console.log(questions);
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
 const showLevel = (state, question) => {
@@ -32,7 +35,6 @@ const fillFinalState = (state) => {
 
   finalState.currentPlayer.spentTime = GameSettings.MAX_GAME_TIME - finalState.currentPlayer.remainingTime;
   finalState.currentPlayer.score = getPlayerScore(currentPlayer.answers, finalState.currentPlayer.remainingNotes);
-  finalState.currentPlayer.result = getPlayerResult(playersStats, finalState.currentPlayer);
 
   return finalState;
 };

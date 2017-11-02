@@ -43,7 +43,8 @@ class Application {
   static init(loadedData) {
     fillQuestions(loadedData);
 
-    console.log(loadedData);
+    // TODO: Удалить
+    // console.log(loadedData);
 
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);

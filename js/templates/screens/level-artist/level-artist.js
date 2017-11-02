@@ -1,8 +1,10 @@
-import {questions, currentPlayer} from '../../../data/game.js';
+import {getQuestions, currentPlayer} from '../../../data/game.js';
 import checkAnswer from '../../../data/check-answer.js';
 import showScreen from '../../show-screen.js';
 import controlGame from '../../control-game.js';
 import LevelArtistView from './level-artist-view.js';
+
+const questions = getQuestions();
 
 class LevelArtist {
   constructor(state) {
