@@ -12,6 +12,16 @@ class Loader {
     });
   }
 
+  // static loadSongs() {
+  //   const promises = [];
+  //
+  //   promises.push(fetch(question.songSrc));
+  //
+  //   Promise.all(promises).then(() => {
+  //     document.querySelector(`.js-main-start`).disabled = false;
+  //   });
+  // }
+
   static loadResults(username = DEFAULT_USERNAME) {
     return fetch(`${SERVER_URL}/stats/${username}`).then((response) => {
       if (response.ok) {

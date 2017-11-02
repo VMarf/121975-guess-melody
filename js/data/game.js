@@ -8,6 +8,11 @@ const GameSettings = {
   MAX_COUNT_LEVELS: 10
 };
 
+const QuestionTypes = {
+  ARTIST: `artist`,
+  GENRE: `genre`
+};
+
 const WordsVariants = {
   MINUTES: [`минуту`, `минуты`, `минут`],
   SECONDS: [`секунду`, `секунды`, `секунд`],
@@ -44,4 +49,4 @@ const currentPlayer = {
 
 const playersStats = [4, 5, 8, 10, 11, 15, 19];
 
-export {GameSettings, WordsVariants, initialState, questions, fillQuestions, currentPlayer, playersStats};
+export {GameSettings, QuestionTypes, WordsVariants, initialState, questions, fillQuestions, currentPlayer, playersStats};

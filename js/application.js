@@ -43,6 +43,8 @@ class Application {
   static init(loadedData) {
     fillQuestions(loadedData);
 
+    console.log(loadedData);
+
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
@@ -88,9 +90,9 @@ class Application {
   }
 }
 
-Loader.loadData().
-    then((loadedData) => adaptQuestions(loadedData)).
-    then((adaptedLoadedData) => Application.init(adaptedLoadedData)).
-    catch(Loader.onError);
+Loader.loadData()
+    .then((loadedData) => adaptQuestions(loadedData))
+    .then((adaptedLoadedData) => Application.init(adaptedLoadedData))
+    .catch(Loader.onError);
 
 export default Application;

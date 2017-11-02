@@ -36,3 +36,12 @@
 .main-play:active {
   transform: scale(1.04);
 }
+
+.main-play:disabled {
+  border-left-color: #808080;
+}
+
+.main-play:hover:disabled,
+.main-play:active:disabled {
+  transform: scale(1);
+}
