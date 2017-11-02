@@ -20,13 +20,17 @@ const getGenreAnswerTemplate = (answerNumber, questionType, songSrc) => {
 
 // Получаем заполненный шаблон игрового экрана
 const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) => {
+  const answersTemplate = question.answerList
+      .map((answer, answerIndex) => getGenreAnswerTemplate(answerIndex + 1, question.type, answer))
+      .join(``);
+
   return `<section class="main main--level main--level-genre js-main">
             ${timerTemplate}
             ${getMistakesTemplate(mistakesNumber)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
                <form class="genre js-genre">
-                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, question.type, answer), ``)}
+                ${answersTemplate}
                 ${answerSendButtonTemplate}
                </form>
             </div>

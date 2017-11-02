@@ -20,15 +20,17 @@ const getAnswerWrapperTemplate = (answerNumber, artistName, artistImage) => {
 
 // Получаем заполненный шаблон игрового экрана
 const getScreenLevelArtistTemplate = (timerTemplate, mistakesNumber, question) => {
+  const answersTemplate = question.answerList
+      .map((answer, answerIndex) => getAnswerWrapperTemplate(answerIndex + 1, answer.artist, answer.image))
+      .join(``);
+
   return `<section class="main main--level main--level-artist js-main">
             ${timerTemplate}
             ${getMistakesTemplate(mistakesNumber)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
               ${getPlayerWrapperTemplate(question.type, question.songSrc)}
-              <form class="main-list js-main-list">
-                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getAnswerWrapperTemplate(answerIndex + 1, answer.artist, answer.image), ``)}
-              </form>
+              <form class="main-list js-main-list">${answersTemplate}</form>
             </div>
           </section>`;
 };
