@@ -1,15 +1,14 @@
-import {getQuestions, currentPlayer} from '../../../data/game.js';
+import Application from '../../../application.js';
+import {currentPlayer} from '../../../data/game.js';
 import checkAnswer from '../../../data/check-answer.js';
 import showScreen from '../../show-screen.js';
 import controlGame from '../../control-game.js';
 import LevelGenreView from './level-genre-view.js';
 
-const questions = getQuestions();
-
 class LevelGenre {
   constructor(state) {
     this.state = state;
-    this.question = questions[this.state.level];
+    this.question = Application.getLevelQuestion(this.state.level);
     this.view = new LevelGenreView(this.state.time, this.state.mistakes, this.question);
     this.answerTimerValue = 0;
     this.answerTimer = null;

@@ -3,9 +3,8 @@ import 'whatwg-fetch';
 import {initialState} from './data/game.js';
 import Application from './application.js';
 
-Application.showWelcome(initialState);
+Application.init(initialState);
 
-// TODO: Внести правки из файла
-// TODO: Проверить приватные методы и поля (должны начинаться с _)
-// TODO: Доделать предварительную загрузку файлов
-// TODO: Сделать последнее дополнительное задание
+// TODO: Статистику игроков надо брать с сервера
+// TODO: Доделать предзагрузку файлов
+// TODO: Сделать последнее доп. задание

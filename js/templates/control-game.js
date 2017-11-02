@@ -1,10 +1,6 @@
-import {GameSettings, QuestionTypes, getQuestions, currentPlayer} from '../data/game.js';
+import {GameSettings, QuestionTypes, currentPlayer} from '../data/game.js';
 import getPlayerScore from '../data/get-player-score.js';
 import Application from '../application.js';
-
-const questions = getQuestions();
-
-console.log(questions);
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
 const showLevel = (state, question) => {
@@ -49,7 +45,7 @@ const controlGame = (state) => {
 
   // Если игрок в процессе игры
   if (state.level < GameSettings.MAX_COUNT_LEVELS) {
-    showLevel(state, questions[state.level]);
+    showLevel(state, Application.getLevelQuestion(state.level));
     return;
   }
 

@@ -1,6 +1,6 @@
 import Loader from './data/loader.js';
+import {QuestionTypes} from './data/game.js';
 import adaptQuestions from './data/adapt-questions.js';
-import {fillQuestions} from './data/game.js';
 import GameTimer from './data/game-timer.js';
 import Welcome from './templates/screens/welcome/welcome.js';
 import LevelArtist from './templates/screens/level-artist/level-artist.js';
@@ -40,12 +40,16 @@ const checkGameTimer = (state) => {
 };
 
 class Application {
-  static init(loadedData) {
-    fillQuestions(loadedData);
+  constructor() {
+    this._questions = [];
+  }
 
-    // TODO: Удалить
-    // console.log(loadedData);
+  static init(state) {
+    this.addHashListener();
+    this.loadData().then((loadedData) => this.start(state, loadedData));
+  }
 
+  static addHashListener() {
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
@@ -62,6 +66,42 @@ class Application {
     if (Controller) {
       new Controller(loadState(data)).init();
     }
+  }
+
+  static loadData() {
+    return Loader.loadData()
+        .then(adaptQuestions)
+        .catch(Loader.onError);
+  }
+
+  static preloadSongs(questions) {
+    const promises = [];
+
+    questions.forEach((question) => {
+      if (question.type === QuestionTypes.ARTIST) {
+        promises.push(fetch(question.songSrc));
+        return;
+      }
+
+      question.answerList.forEach((answer) => {
+        promises.push(fetch(answer));
+      });
+    });
+
+    Promise.all(promises).then(() => {
+      document.querySelector(`.js-main-start`).disabled = false;
+    });
+  }
+
+  static getLevelQuestion(levelNumber) {
+    return this._questions[levelNumber];
+  }
+
+  static start(state, loadedData) {
+    this._questions = loadedData;
+
+    this.preloadSongs(this._questions);
+    this.showWelcome(state);
   }
 
   static showWelcome(state) {
@@ -90,10 +130,5 @@ class Application {
     location.hash = `${ControllerId.FAIL_RESULT}?${saveState(state)}`;
   }
 }
-
-Loader.loadData()
-    .then((loadedData) => adaptQuestions(loadedData))
-    .then((adaptedLoadedData) => Application.init(adaptedLoadedData))
-    .catch(Loader.onError);
 
 export default Application;
