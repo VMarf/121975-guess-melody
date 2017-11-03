@@ -39,7 +39,8 @@ const createArtistQuestion = (loadedQuestion) => {
     title: loadedQuestion.question,
     songSrc: loadedQuestion.src,
     answerList: getAnswerList(loadedQuestion),
-    correctAnswer: getArtistCorrectAnswer(loadedQuestion.answers)
+    correctAnswer: getArtistCorrectAnswer(loadedQuestion.answers),
+    preloadedSong: null
   };
 };
 
@@ -48,7 +49,8 @@ const createGenreQuestion = (loadedQuestion) => {
     type: loadedQuestion.type,
     title: loadedQuestion.question,
     answerList: getAnswerList(loadedQuestion),
-    correctAnswer: getGenreCorrectAnswer(loadedQuestion.answers, loadedQuestion.genre)
+    correctAnswer: getGenreCorrectAnswer(loadedQuestion.answers, loadedQuestion.genre),
+    preloadedSongs: []
   };
 };
 

@@ -39,6 +39,38 @@ const checkGameTimer = (state) => {
   }
 };
 
+const blobToBase64 = (file) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+
+    reader.onloadend = (evt) => resolve(evt.currentTarget.result);
+    reader.readAsDataURL(file);
+  });
+};
+
+// TODO: Переписать с использованием async
+const preloadQuestionSongs = async (question) => {
+  if (question.type === QuestionTypes.ARTIST) {
+    fetch(question.songSrc)
+        .then((response) => response.blob())
+        .then(blobToBase64)
+        .then((base64) => {
+          question.preloadedSong = base64;
+        });
+
+    return;
+  }
+
+  question.answerList.forEach((answer) => {
+    fetch(answer)
+        .then((response) => response.blob())
+        .then(blobToBase64)
+        .then((base64) => {
+          question.preloadedSongs.push(base64);
+        });
+  });
+};
+
 class Application {
   constructor() {
     this._questions = [];
@@ -81,27 +113,15 @@ class Application {
     return adaptQuestions(loadedData);
   }
 
-  static async preloadSongs(questions) {
-    const promises = [];
-
+  static preloadAllSongs(questions) {
     questions.forEach((question) => {
-      if (question.type === QuestionTypes.ARTIST) {
-        promises.push(fetch(question.songSrc));
-        return;
-      }
-
-      question.answerList.forEach((answer) => {
-        promises.push(fetch(answer));
-      });
+      preloadQuestionSongs(question);
     });
 
-    try {
-      await Promise.all(promises);
-      document.querySelector(`.js-main-start`).disabled = false;
+    // TODO: Удалить
+    console.log(questions);
 
-    } catch (e) {
-      Loader.onError(e.message);
-    }
+    document.querySelector(`.js-main-start`).disabled = false;
   }
 
   static getLevelQuestion(levelNumber) {
@@ -111,8 +131,8 @@ class Application {
   static start(state, loadedData) {
     this._questions = loadedData;
 
-    this.preloadSongs(this._questions);
     this.showWelcome(state);
+    this.preloadAllSongs(this._questions);
   }
 
   static showWelcome(state) {
