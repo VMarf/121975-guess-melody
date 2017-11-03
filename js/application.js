@@ -75,45 +75,13 @@ class Application {
     }
   }
 
-  // TODO: Удалить
-  static loadData() {
-    return Loader.loadData()
-        .then(adaptQuestions)
-        .catch(Loader.onError);
+  static async loadData() {
+    const loadedData = await Loader.loadData();
+
+    return adaptQuestions(loadedData);
   }
 
-  // static async loadData() {
-  //   try {
-  //     const loadedData = await Loader.loadData();
-  //     const adaptedQuestions = await adaptQuestions(loadedData);
-  //     return adaptedQuestions;
-  //
-  //   } catch (e) {
-  //     Loader.onError(e.message);
-  //   }
-  // }
-
-  // TODO: Удалить
-  // static preloadSongs(questions) {
-  //   const promises = [];
-  //
-  //   questions.forEach((question) => {
-  //     if (question.type === QuestionTypes.ARTIST) {
-  //       promises.push(fetch(question.songSrc));
-  //       return;
-  //     }
-  //
-  //     question.answerList.forEach((answer) => {
-  //       promises.push(fetch(answer));
-  //     });
-  //   });
-  //
-  //   Promise.all(promises).then(() => {
-  //     document.querySelector(`.js-main-start`).disabled = false;
-  //   });
-  // }
-
-  static preloadSongs(questions) {
+  static async preloadSongs(questions) {
     const promises = [];
 
     questions.forEach((question) => {
@@ -127,9 +95,13 @@ class Application {
       });
     });
 
-    Promise.all(promises).then(() => {
+    try {
+      await Promise.all(promises);
       document.querySelector(`.js-main-start`).disabled = false;
-    });
+
+    } catch (e) {
+      Loader.onError(e.message);
+    }
   }
 
   static getLevelQuestion(levelNumber) {
@@ -138,9 +110,6 @@ class Application {
 
   static start(state, loadedData) {
     this._questions = loadedData;
-
-    // TODO: Удалить
-    console.log(this._questions);
 
     this.preloadSongs(this._questions);
     this.showWelcome(state);
