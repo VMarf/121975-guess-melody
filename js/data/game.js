@@ -41,6 +41,4 @@ const currentPlayer = {
   }
 };
 
-const playersStats = [4, 5, 8, 10, 11, 15, 19];
-
-export {GameSettings, QuestionTypes, WordsVariants, initialState, currentPlayer, playersStats};
+export {GameSettings, QuestionTypes, WordsVariants, initialState, currentPlayer};

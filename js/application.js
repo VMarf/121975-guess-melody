@@ -44,9 +44,16 @@ class Application {
     this._questions = [];
   }
 
-  static init(state) {
-    this.addHashListener();
-    this.loadData().then((loadedData) => this.start(state, loadedData));
+  static async init(state) {
+    try {
+      const loadedData = await this.loadData();
+
+      this.addHashListener();
+      this.start(state, loadedData);
+
+    } catch (e) {
+      Loader.onError(e.message);
+    }
   }
 
   static addHashListener() {
@@ -68,11 +75,43 @@ class Application {
     }
   }
 
+  // TODO: Удалить
   static loadData() {
     return Loader.loadData()
         .then(adaptQuestions)
         .catch(Loader.onError);
   }
+
+  // static async loadData() {
+  //   try {
+  //     const loadedData = await Loader.loadData();
+  //     const adaptedQuestions = await adaptQuestions(loadedData);
+  //     return adaptedQuestions;
+  //
+  //   } catch (e) {
+  //     Loader.onError(e.message);
+  //   }
+  // }
+
+  // TODO: Удалить
+  // static preloadSongs(questions) {
+  //   const promises = [];
+  //
+  //   questions.forEach((question) => {
+  //     if (question.type === QuestionTypes.ARTIST) {
+  //       promises.push(fetch(question.songSrc));
+  //       return;
+  //     }
+  //
+  //     question.answerList.forEach((answer) => {
+  //       promises.push(fetch(answer));
+  //     });
+  //   });
+  //
+  //   Promise.all(promises).then(() => {
+  //     document.querySelector(`.js-main-start`).disabled = false;
+  //   });
+  // }
 
   static preloadSongs(questions) {
     const promises = [];
@@ -100,6 +139,9 @@ class Application {
   static start(state, loadedData) {
     this._questions = loadedData;
 
+    // TODO: Удалить
+    console.log(this._questions);
+
     this.preloadSongs(this._questions);
     this.showWelcome(state);
   }
@@ -118,11 +160,10 @@ class Application {
     new LevelGenre(state).init();
   }
 
-  static showWinResult(state) {
+  static async showWinResult(state) {
     state.timer.stop();
-    Loader.saveResults(state).then(() => {
-      location.hash = `${ControllerId.WIN_RESULT}?${saveState(null)}`;
-    });
+    await Loader.saveResults(state);
+    location.hash = `${ControllerId.WIN_RESULT}?${saveState(null)}`;
   }
 
   static showFailResult(state) {
