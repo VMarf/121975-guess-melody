@@ -44,48 +44,21 @@ const blobToBase64 = (file) => {
     const reader = new FileReader();
 
     reader.onloadend = (evt) => resolve(evt.currentTarget.result);
-
-    // TODO: Удалить
-    console.log(file);
-
     reader.readAsDataURL(file);
   });
 };
 
-// TODO: Переписать с использованием async
-// const preloadQuestionSongs = (question) => {
-//   if (question.type === QuestionTypes.ARTIST) {
-//     fetch(question.songSrc)
-//         .then((response) => response.blob())
-//         .then(blobToBase64)
-//         .then((base64) => {
-//           question.preloadedSong = base64;
-//         });
-//
-//     return;
-//   }
-//
-//   question.answerList.forEach((answer) => {
-//     fetch(answer)
-//         .then((response) => response.blob())
-//         .then(blobToBase64)
-//         .then((base64) => {
-//           question.preloadedSongs.push(base64);
-//         });
-//   });
-// };
-
 const preloadQuestionSongs = async (question) => {
   if (question.type === QuestionTypes.ARTIST) {
     const response = await fetch(question.songSrc);
-    question.preloadedSong = blobToBase64(response.blob());
+    question.preloadedSong = await blobToBase64(await response.blob());
 
     return;
   }
 
   question.answerList.forEach(async (answer) => {
     const response = await fetch(answer);
-    question.preloadedSongs.push(blobToBase64(response.blob()));
+    question.preloadedSongs.push(await blobToBase64(await response.blob()));
   });
 };
 
@@ -147,11 +120,11 @@ class Application {
     return this._questions[levelNumber];
   }
 
-  static start(state, loadedData) {
+  static async start(state, loadedData) {
     this._questions = loadedData;
 
     this.showWelcome(state);
-    this.preloadAllSongs(this._questions);
+    await this.preloadAllSongs(this._questions);
   }
 
   static showWelcome(state) {
