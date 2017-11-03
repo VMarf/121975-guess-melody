@@ -10,10 +10,10 @@ const getTitleTemplate = (text) => {
 };
 
 // Получаем заполненный шаблон одного варианта ответа
-const getGenreAnswerTemplate = (answerNumber, questionType, preloadedSong, songSrc) => {
+const getGenreAnswerTemplate = (answerNumber, questionType, song) => {
   return `<div class="genre-answer">
-            ${getPlayerWrapperTemplate(questionType, preloadedSong)}
-            <input class="js-genre-answer-input" type="checkbox" name="answer" value="${songSrc}" id="a-${answerNumber}">
+            ${getPlayerWrapperTemplate(questionType, song.url)}
+            <input class="js-genre-answer-input" type="checkbox" name="answer" value="${song.src}" id="a-${answerNumber}">
             <label class="genre-answer-check" for="a-${answerNumber}"></label>
           </div>`;
 };
@@ -21,7 +21,7 @@ const getGenreAnswerTemplate = (answerNumber, questionType, preloadedSong, songS
 // Получаем заполненный шаблон игрового экрана
 const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) => {
   const answersTemplate = question.answerList
-      .map((answer, answerIndex) => getGenreAnswerTemplate(answerIndex + 1, question.type, question.preloadedSongs[answerIndex], answer))
+      .map((answer, answerIndex) => getGenreAnswerTemplate(answerIndex + 1, question.type, answer))
       .join(``);
 
   return `<section class="main main--level main--level-genre js-main">

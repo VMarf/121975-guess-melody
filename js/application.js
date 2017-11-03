@@ -2,6 +2,7 @@ import Loader from './data/loader.js';
 import {QuestionTypes} from './data/game.js';
 import adaptQuestions from './data/adapt-questions.js';
 import GameTimer from './data/game-timer.js';
+import blobToBase64 from './utils/blob-to-base64.js';
 import Welcome from './templates/screens/welcome/welcome.js';
 import LevelArtist from './templates/screens/level-artist/level-artist.js';
 import LevelGenre from './templates/screens/level-genre/level-genre.js';
@@ -39,26 +40,21 @@ const checkGameTimer = (state) => {
   }
 };
 
-const blobToBase64 = (file) => {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
+const getSource = async (src) => {
+  const response = await fetch(src);
 
-    reader.onloadend = (evt) => resolve(evt.currentTarget.result);
-    reader.readAsDataURL(file);
-  });
+  return await blobToBase64(await response.blob());
 };
 
 const preloadQuestionSongs = async (question) => {
   if (question.type === QuestionTypes.ARTIST) {
-    const response = await fetch(question.songSrc);
-    question.preloadedSong = await blobToBase64(await response.blob());
+    question.song.url = await getSource(question.song.src);
 
     return;
   }
 
   question.answerList.forEach(async (answer) => {
-    const response = await fetch(answer);
-    question.preloadedSongs.push(await blobToBase64(await response.blob()));
+    answer.url = await getSource(answer.src);
   });
 };
 

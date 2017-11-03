@@ -29,7 +29,7 @@ const getScreenLevelArtistTemplate = (timerTemplate, mistakesNumber, question) =
             ${getMistakesTemplate(mistakesNumber)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
-              ${getPlayerWrapperTemplate(question.type, question.preloadedSong)}
+              ${getPlayerWrapperTemplate(question.type, question.song.url)}
               <form class="main-list js-main-list">${answersTemplate}</form>
             </div>
           </section>`;

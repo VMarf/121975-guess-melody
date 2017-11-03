@@ -10,7 +10,12 @@ const getAnswerList = (loadedQuestion) => {
     });
   }
 
-  return loadedQuestion.answers.map((answer) => answer.src);
+  return loadedQuestion.answers.map((answer) => {
+    return {
+      src: answer.src,
+      url: null
+    };
+  });
 };
 
 const getArtistCorrectAnswer = (answers) => {
@@ -37,10 +42,12 @@ const createArtistQuestion = (loadedQuestion) => {
   return {
     type: loadedQuestion.type,
     title: loadedQuestion.question,
-    songSrc: loadedQuestion.src,
+    song: {
+      src: loadedQuestion.src,
+      url: null
+    },
     answerList: getAnswerList(loadedQuestion),
     correctAnswer: getArtistCorrectAnswer(loadedQuestion.answers),
-    preloadedSong: null
   };
 };
 
@@ -49,8 +56,7 @@ const createGenreQuestion = (loadedQuestion) => {
     type: loadedQuestion.type,
     title: loadedQuestion.question,
     answerList: getAnswerList(loadedQuestion),
-    correctAnswer: getGenreCorrectAnswer(loadedQuestion.answers, loadedQuestion.genre),
-    preloadedSongs: []
+    correctAnswer: getGenreCorrectAnswer(loadedQuestion.answers, loadedQuestion.genre)
   };
 };
 
