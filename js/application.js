@@ -44,30 +44,48 @@ const blobToBase64 = (file) => {
     const reader = new FileReader();
 
     reader.onloadend = (evt) => resolve(evt.currentTarget.result);
+
+    // TODO: Удалить
+    console.log(file);
+
     reader.readAsDataURL(file);
   });
 };
 
 // TODO: Переписать с использованием async
+// const preloadQuestionSongs = (question) => {
+//   if (question.type === QuestionTypes.ARTIST) {
+//     fetch(question.songSrc)
+//         .then((response) => response.blob())
+//         .then(blobToBase64)
+//         .then((base64) => {
+//           question.preloadedSong = base64;
+//         });
+//
+//     return;
+//   }
+//
+//   question.answerList.forEach((answer) => {
+//     fetch(answer)
+//         .then((response) => response.blob())
+//         .then(blobToBase64)
+//         .then((base64) => {
+//           question.preloadedSongs.push(base64);
+//         });
+//   });
+// };
+
 const preloadQuestionSongs = async (question) => {
   if (question.type === QuestionTypes.ARTIST) {
-    fetch(question.songSrc)
-        .then((response) => response.blob())
-        .then(blobToBase64)
-        .then((base64) => {
-          question.preloadedSong = base64;
-        });
+    const response = await fetch(question.songSrc);
+    question.preloadedSong = blobToBase64(response.blob());
 
     return;
   }
 
-  question.answerList.forEach((answer) => {
-    fetch(answer)
-        .then((response) => response.blob())
-        .then(blobToBase64)
-        .then((base64) => {
-          question.preloadedSongs.push(base64);
-        });
+  question.answerList.forEach(async (answer) => {
+    const response = await fetch(answer);
+    question.preloadedSongs.push(blobToBase64(response.blob()));
   });
 };
 
@@ -113,13 +131,14 @@ class Application {
     return adaptQuestions(loadedData);
   }
 
-  static preloadAllSongs(questions) {
+  static async preloadAllSongs(questions) {
+    const promises = [];
+
     questions.forEach((question) => {
-      preloadQuestionSongs(question);
+      promises.push(preloadQuestionSongs(question));
     });
 
-    // TODO: Удалить
-    console.log(questions);
+    await Promise.all(promises);
 
     document.querySelector(`.js-main-start`).disabled = false;
   }
