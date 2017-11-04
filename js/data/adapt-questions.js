@@ -1,16 +1,16 @@
 import {QuestionType} from './game.js';
 
 const getAnswerList = (loadedQuestion) => {
-  if (loadedQuestion.type === QuestionType.ARTIST) {
-    return loadedQuestion.answers.map((answer) => {
+  const isArtist = loadedQuestion.type === QuestionType.ARTIST;
+
+  return loadedQuestion.answers.map((answer) => {
+    if (isArtist) {
       return {
         artist: answer.title,
         image: answer.image.url
       };
-    });
-  }
+    }
 
-  return loadedQuestion.answers.map((answer) => {
     return {
       src: answer.src,
       url: null
