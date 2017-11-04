@@ -22,7 +22,7 @@ class WinResult {
       const view = new WinResultView(state, playerResult);
 
       showScreen(view.element);
-      initReplay();
+      initReplay(view.getReplay());
 
     } catch (e) {
       Loader.onError(e.message);

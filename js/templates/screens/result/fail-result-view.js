@@ -18,6 +18,10 @@ class FailResultView extends AbstractResultView {
     return `<h2 class="title">Какая жалость!</h2>
             <div class="main-stat">У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!</div>`;
   }
+
+  getReplay() {
+    return document.querySelector(`.js-main-replay`);
+  }
 }
 
 export default FailResultView;

@@ -31,6 +31,10 @@ class WinResultView extends AbstractResultView {
             </div>
             <span class="main-comparison">${resultText}</span>`;
   }
+
+  getReplay() {
+    return document.querySelector(`.js-main-replay`);
+  }
 }
 
 export default WinResultView;
