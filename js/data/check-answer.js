@@ -1,4 +1,4 @@
-import {QuestionTypes} from './game.js';
+import {QuestionType} from './game.js';
 
 // Проверяем ответ для игровых экранов с выбором жанра
 const checkGenreAnswer = (answer, correctAnswer) => {
@@ -27,7 +27,7 @@ const checkAnswer = (state, question, answer, answerTime, currentPlayer) => {
   let isAnswerCorrect;
 
   // Проверка ответа для игрового экрана с выбором исполнителя
-  if (question.type === QuestionTypes.ARTIST) {
+  if (question.type === QuestionType.ARTIST) {
 
     // Узнаем правильный ответ или нет
     isAnswerCorrect = answer === question.correctAnswer;
@@ -38,7 +38,7 @@ const checkAnswer = (state, question, answer, answerTime, currentPlayer) => {
   }
 
   // Проверка ответа для игрового экрана с музыкальным жанром
-  if (question.type === QuestionTypes.GENRE) {
+  if (question.type === QuestionType.GENRE) {
 
     // Узнаем правильный ответ или нет
     isAnswerCorrect = checkGenreAnswer(answer, question.correctAnswer);

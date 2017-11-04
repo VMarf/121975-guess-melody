@@ -1,7 +1,7 @@
-import {QuestionTypes} from './game.js';
+import {QuestionType} from './game.js';
 
 const getAnswerList = (loadedQuestion) => {
-  if (loadedQuestion.type === QuestionTypes.ARTIST) {
+  if (loadedQuestion.type === QuestionType.ARTIST) {
     return loadedQuestion.answers.map((answer) => {
       return {
         artist: answer.title,
@@ -64,7 +64,7 @@ const adaptQuestions = (loadedData) => {
   const adaptedQuestions = [];
 
   loadedData.forEach((loadedQuestion) => {
-    if (loadedQuestion.type === QuestionTypes.ARTIST) {
+    if (loadedQuestion.type === QuestionType.ARTIST) {
       adaptedQuestions.push(createArtistQuestion(loadedQuestion));
       return;
     }

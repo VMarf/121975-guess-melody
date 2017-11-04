@@ -8,7 +8,7 @@ const GameSettings = {
   MAX_COUNT_LEVELS: 10
 };
 
-const QuestionTypes = {
+const QuestionType = {
   ARTIST: `artist`,
   GENRE: `genre`
 };
@@ -41,4 +41,4 @@ const currentPlayer = {
   }
 };
 
-export {GameSettings, QuestionTypes, WordsVariants, initialState, currentPlayer};
+export {GameSettings, QuestionType, WordsVariants, initialState, currentPlayer};

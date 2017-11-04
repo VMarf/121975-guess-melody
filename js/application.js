@@ -1,5 +1,5 @@
 import Loader from './data/loader.js';
-import {QuestionTypes} from './data/game.js';
+import {QuestionType} from './data/game.js';
 import adaptQuestions from './data/adapt-questions.js';
 import GameTimer from './data/game-timer.js';
 import blobToBase64 from './utils/blob-to-base64.js';
@@ -47,7 +47,7 @@ const getSource = async (src) => {
 };
 
 const preloadQuestionSongs = async (question) => {
-  if (question.type === QuestionTypes.ARTIST) {
+  if (question.type === QuestionType.ARTIST) {
     question.song.url = await getSource(question.song.src);
 
     return;

@@ -1,15 +1,15 @@
-import {GameSettings, QuestionTypes, currentPlayer} from '../data/game.js';
+import {GameSettings, QuestionType, currentPlayer} from '../data/game.js';
 import getPlayerScore from '../data/get-player-score.js';
 import Application from '../application.js';
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
 const showLevel = (state, question) => {
-  if (question.type === QuestionTypes.ARTIST) {
+  if (question.type === QuestionType.ARTIST) {
     Application.showLevelArtist(state);
     return;
   }
 
-  if (question.type === QuestionTypes.GENRE) {
+  if (question.type === QuestionType.GENRE) {
     Application.showLevelGenre(state);
   }
 };
