@@ -1,6 +1,6 @@
 import Loader from './data/loader.js';
+import {QuestionType} from './data/game.js';
 import adaptQuestions from './data/adapt-questions.js';
-import {fillQuestions} from './data/game.js';
 import GameTimer from './data/game-timer.js';
 import Welcome from './templates/screens/welcome/welcome.js';
 import LevelArtist from './templates/screens/level-artist/level-artist.js';
@@ -39,10 +39,42 @@ const checkGameTimer = (state) => {
   }
 };
 
-class Application {
-  static init(loadedData) {
-    fillQuestions(loadedData);
+const getSource = async (src) => {
+  const response = await fetch(src);
 
+  return await URL.createObjectURL(await response.blob());
+};
+
+const preloadQuestionSongs = async (question) => {
+  if (question.type === QuestionType.ARTIST) {
+    question.song.url = await getSource(question.song.src);
+
+    return;
+  }
+
+  question.answerList.forEach(async (answer) => {
+    answer.url = await getSource(answer.src);
+  });
+};
+
+class Application {
+  constructor() {
+    this._questions = [];
+  }
+
+  static async init(state) {
+    try {
+      const loadedData = await this.loadData();
+
+      this.addHashListener();
+      await this.start(state, loadedData);
+
+    } catch (e) {
+      Loader.onError(e.message);
+    }
+  }
+
+  static addHashListener() {
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
@@ -58,7 +90,37 @@ class Application {
 
     if (Controller) {
       new Controller(loadState(data)).init();
+    } else {
+      this.showWelcome();
     }
+  }
+
+  static async loadData() {
+    const loadedData = await Loader.loadData();
+
+    return adaptQuestions(loadedData);
+  }
+
+  static async preloadAllSongs(questions) {
+    const promises = [];
+
+    questions.forEach((question) => {
+      promises.push(preloadQuestionSongs(question));
+    });
+
+    await Promise.all(promises);
+  }
+
+  static getLevelQuestion(levelNumber) {
+    return this._questions[levelNumber];
+  }
+
+  static async start(state, loadedData) {
+    this._questions = loadedData;
+
+    this.showWelcome(state);
+    await this.preloadAllSongs(this._questions);
+    document.querySelector(`.js-main-start`).disabled = false;
   }
 
   static showWelcome(state) {
@@ -75,11 +137,10 @@ class Application {
     new LevelGenre(state).init();
   }
 
-  static showWinResult(state) {
+  static async showWinResult(state) {
     state.timer.stop();
-    Loader.saveResults(state).then(() => {
-      location.hash = `${ControllerId.WIN_RESULT}?${saveState(null)}`;
-    });
+    await Loader.saveResults(state);
+    location.hash = `${ControllerId.WIN_RESULT}?${saveState(null)}`;
   }
 
   static showFailResult(state) {
@@ -87,10 +148,5 @@ class Application {
     location.hash = `${ControllerId.FAIL_RESULT}?${saveState(state)}`;
   }
 }
-
-Loader.loadData().
-    then((loadedData) => adaptQuestions(loadedData)).
-    then((adaptedLoadedData) => Application.init(adaptedLoadedData)).
-    catch(Loader.onError);
 
 export default Application;

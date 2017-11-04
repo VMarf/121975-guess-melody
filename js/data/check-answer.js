@@ -1,56 +1,38 @@
-// Проверяем элемент в массиве
-const checkArrayHasElement = (element, array) => {
-  const elementIndex = array.indexOf(element);
+import {QuestionType} from './game.js';
+import PlayerAnswer from './player-answer.js';
 
-  // Если элемент в массиве есть, возвращаем true, если нет, возвращаем false
-  return elementIndex > -1;
-};
-
-// Проверяем ответ для игровых экранов с выбором жанра
+// Проверяем ответ для игровых экранов с жанром
 const checkGenreAnswer = (answer, correctAnswer) => {
-  if (answer.length === correctAnswer.length) {
-    return answer.every((answerItem) => checkArrayHasElement(answerItem, correctAnswer));
+  if (answer.length !== correctAnswer.length) {
+    return false;
   }
 
-  return false;
+  return answer.every((answerItem) => correctAnswer.includes(answerItem));
 };
 
 // Добавляем ответ к остальным ответам игрока
-const addPlayerAnswer = (state, currentPlayer, answerBoolean, answerTime) => {
+const addPlayerAnswer = (state, currentPlayer, isAnswerCorrect, answerTime) => {
 
   // Если ответ неправильный, увеличиваем количество ошибок
-  if (answerBoolean === false) {
+  if (!isAnswerCorrect) {
     state.mistakes++;
   }
 
-  currentPlayer.answers.push({
-    correctly: answerBoolean,
-    time: answerTime
-  });
+  currentPlayer.answers.push(new PlayerAnswer(isAnswerCorrect, answerTime));
 };
 
 const checkAnswer = (state, question, answer, answerTime, currentPlayer) => {
-  let answerBoolean;
+  let isAnswerCorrect;
 
-  // Проверка ответа для игрового экрана с выбором исполнителя
-  if (question.type === `artist`) {
-
-    // Узнаем правильный ответ или нет
-    answerBoolean = answer === question.correctAnswer;
-
-    addPlayerAnswer(state, currentPlayer, answerBoolean, answerTime);
-
-    return;
+  if (question.type === QuestionType.ARTIST) {
+    isAnswerCorrect = answer === question.correctAnswer;
   }
 
-  // Проверка ответа для игрового экрана с музыкальным жанром
-  if (question.type === `genre`) {
-
-    // Узнаем правильный ответ или нет
-    answerBoolean = checkGenreAnswer(answer, question.correctAnswer);
-
-    addPlayerAnswer(state, currentPlayer, answerBoolean, answerTime);
+  if (question.type === QuestionType.GENRE) {
+    isAnswerCorrect = checkGenreAnswer(answer, question.correctAnswer);
   }
+
+  addPlayerAnswer(state, currentPlayer, isAnswerCorrect, answerTime);
 };
 
 export default checkAnswer;

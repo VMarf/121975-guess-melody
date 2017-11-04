@@ -5,17 +5,15 @@ class AbstractView {
     throw new Error(`You have to define template for view`);
   }
 
-  render() {
+  _render() {
     return getNode(this.template);
   }
 
-  bind() {
-
-  }
+  bind() {}
 
   get element() {
     if (!this._element) {
-      this._element = this.render();
+      this._element = this._render();
       this.bind();
     }
 

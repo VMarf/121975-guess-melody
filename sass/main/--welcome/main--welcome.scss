@@ -36,3 +36,19 @@
 .main-play:active {
   transform: scale(1.04);
 }
+
+.main-play:disabled {
+  border-left-color: #808080;
+  animation: preload 1000ms ease-in-out infinite alternate;
+}
+
+.main-play:hover:disabled,
+.main-play:active:disabled {
+  transform: scale(1);
+}
+
+@keyframes preload {
+  0% {
+    transform: scale(1); }
+  100% {
+    transform: scale(1.2); } }

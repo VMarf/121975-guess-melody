@@ -20,15 +20,17 @@ const getAnswerWrapperTemplate = (answerNumber, artistName, artistImage) => {
 
 // Получаем заполненный шаблон игрового экрана
 const getScreenLevelArtistTemplate = (timerTemplate, mistakesNumber, question) => {
+  const answersTemplate = question.answerList
+      .map((answer, answerIndex) => getAnswerWrapperTemplate(answerIndex + 1, answer.artist, answer.image))
+      .join(``);
+
   return `<section class="main main--level main--level-artist js-main">
             ${timerTemplate}
             ${getMistakesTemplate(mistakesNumber)}
             <div class="main-wrap">
               ${getTitleTemplate(question.title)}
-              ${getPlayerWrapperTemplate(question.type, question.songSrc)}
-              <form class="main-list js-main-list">
-                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getAnswerWrapperTemplate(answerIndex + 1, answer.artist, answer.image), ``)}
-              </form>
+              ${getPlayerWrapperTemplate(question.type, question.song.url)}
+              <form class="main-list js-main-list">${answersTemplate}</form>
             </div>
           </section>`;
 };
@@ -49,9 +51,9 @@ class LevelArtistView extends AbstractView {
     const playButton = this._element.querySelector(`.js-song-play`);
     const answersList = this._element.querySelector(`.js-main-list`);
 
-    playButton.addEventListener(`click`, () => this.onPlayButtonClick(playButton));
+    playButton.addEventListener(`click`, () => this._onPlayButtonClick(playButton));
 
-    answersList.addEventListener(`click`, (evt) => this.onAnswersListClick(evt));
+    answersList.addEventListener(`click`, (evt) => this._onAnswersListClick(evt));
   }
 
   updateTime(seconds) {
@@ -59,7 +61,7 @@ class LevelArtistView extends AbstractView {
   }
 
   // Управление воспроизведением трека
-  onPlayButtonClick(playButton) {
+  _onPlayButtonClick(playButton) {
     playButton.classList.toggle(`player-control--pause`);
 
     if (playButton.classList.contains(`player-control--pause`)) {
@@ -70,7 +72,7 @@ class LevelArtistView extends AbstractView {
     playButton.previousElementSibling.pause();
   }
 
-  onAnswersListClick(evt) {
+  _onAnswersListClick(evt) {
     if (evt.target.closest(`.js-main-answer-r`)) {
       const answer = evt.target.closest(`.js-main-answer-r`).value;
 

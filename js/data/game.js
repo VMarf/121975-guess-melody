@@ -8,31 +8,17 @@ const GameSettings = {
   MAX_COUNT_LEVELS: 10
 };
 
+const QuestionType = {
+  ARTIST: `artist`,
+  GENRE: `genre`
+};
+
 const WordsVariants = {
   MINUTES: [`минуту`, `минуты`, `минут`],
   SECONDS: [`секунду`, `секунды`, `секунд`],
   SCORE: [`балл`, `балла`, `баллов`],
   FAST: [`быстрый`, `быстрых`, `быстрых`],
   MISTAKES: [`ошибку`, `ошибки`, `ошибок`]
-};
-
-const initialState = {
-  time: GameSettings.MAX_GAME_TIME,
-  timer: null,
-  mistakes: 0,
-  level: 0,
-  resetToDefault() {
-    this.time = GameSettings.MAX_GAME_TIME;
-    this.timer = null;
-    this.mistakes = 0;
-    this.level = 0;
-  }
-};
-
-let questions = [];
-
-const fillQuestions = (loadedData) => {
-  questions = loadedData;
 };
 
 const currentPlayer = {
@@ -42,6 +28,4 @@ const currentPlayer = {
   }
 };
 
-const playersStats = [4, 5, 8, 10, 11, 15, 19];
-
-export {GameSettings, WordsVariants, initialState, questions, fillQuestions, currentPlayer, playersStats};
+export {GameSettings, QuestionType, WordsVariants, currentPlayer};

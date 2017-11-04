@@ -1,34 +1,36 @@
-import {GameSettings, questions, currentPlayer, playersStats} from '../data/game.js';
+import {GameSettings, QuestionType, currentPlayer} from '../data/game.js';
 import getPlayerScore from '../data/get-player-score.js';
-import getPlayerResult from '../data/get-player-result.js';
 import Application from '../application.js';
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
-const checkQuestionType = (state, question) => {
-  if (question.type === `artist`) {
+const showLevel = (state, question) => {
+  if (question.type === QuestionType.ARTIST) {
     Application.showLevelArtist(state);
     return;
   }
 
-  if (question.type === `genre`) {
+  if (question.type === QuestionType.GENRE) {
     Application.showLevelGenre(state);
   }
 };
 
 const fillFinalState = (state) => {
+  const numberQuickAnswers = currentPlayer.answers
+      .filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME)
+      .length;
+
   const finalState = {
     timer: state.timer,
     mistakes: state.mistakes,
     currentPlayer: {
       remainingTime: state.time,
       remainingNotes: GameSettings.MAX_COUNT_NOTES - state.mistakes,
-      numberQuickAnswers: currentPlayer.answers.filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME).length
+      numberQuickAnswers
     }
   };
 
   finalState.currentPlayer.spentTime = GameSettings.MAX_GAME_TIME - finalState.currentPlayer.remainingTime;
   finalState.currentPlayer.score = getPlayerScore(currentPlayer.answers, finalState.currentPlayer.remainingNotes);
-  finalState.currentPlayer.result = getPlayerResult(playersStats, finalState.currentPlayer);
 
   return finalState;
 };
@@ -43,7 +45,7 @@ const controlGame = (state) => {
 
   // Если игрок в процессе игры
   if (state.level < GameSettings.MAX_COUNT_LEVELS) {
-    checkQuestionType(state, questions[state.level]);
+    showLevel(state, Application.getLevelQuestion(state.level));
     return;
   }
 

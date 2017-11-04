@@ -10,7 +10,7 @@ class FailResult {
 
   init() {
     showScreen(this.view.element);
-    initReplay();
+    initReplay(this.view.getReplay());
   }
 }
 
