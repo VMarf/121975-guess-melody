@@ -68,7 +68,7 @@ class Application {
       const loadedData = await this.loadData();
 
       this.addHashListener();
-      this.start(state, loadedData);
+      await this.start(state, loadedData);
 
     } catch (e) {
       Loader.onError(e.message);
@@ -121,8 +121,8 @@ class Application {
     console.log(this._questions);
 
     this.showWelcome(state);
-    // await this.preloadAllSongs(this._questions);
-    // document.querySelector(`.js-main-start`).disabled = false;
+    await this.preloadAllSongs(this._questions);
+    document.querySelector(`.js-main-start`).disabled = false;
   }
 
   static showWelcome(state) {

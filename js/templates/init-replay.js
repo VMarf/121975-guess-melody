@@ -1,5 +1,5 @@
+import {GameSettings, currentPlayer} from '../data/game.js';
 import State from '../data/state.js';
-import {GameSettings, initialState, currentPlayer} from '../data/game.js';
 import controlGame from './control-game.js';
 
 const initReplay = () => {
@@ -8,10 +8,8 @@ const initReplay = () => {
   const onReplayClick = () => {
 
     // Начинаем новую игру
-    initialState = new State(GameSettings.MAX_GAME_TIME);
-
     currentPlayer.resetToDefault();
-    controlGame(initialState);
+    controlGame(new State(GameSettings.MAX_GAME_TIME));
   };
 
   replay.addEventListener(`click`, onReplayClick);
