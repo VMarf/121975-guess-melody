@@ -3,6 +3,12 @@ import ArtistAnswer from './artist-answer.js';
 import GenreAnswer from './genre-answer.js';
 
 class AbstractQuestion {
+  constructor(loadedQuestion) {
+    this.type = loadedQuestion.type;
+    this.title = loadedQuestion.question;
+    this.answerList = this.getAnswerList(loadedQuestion);
+  }
+
   getAnswerList(loadedQuestion) {
     const isArtist = loadedQuestion.type === QuestionType.ARTIST;
 
@@ -13,7 +19,7 @@ class AbstractQuestion {
 
       return new GenreAnswer(answer.src, null);
     });
-  };
+  }
 }
 
 export default AbstractQuestion;

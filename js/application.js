@@ -108,8 +108,6 @@ class Application {
     });
 
     await Promise.all(promises);
-
-    document.querySelector(`.js-main-start`).disabled = false;
   }
 
   static getLevelQuestion(levelNumber) {
@@ -124,6 +122,7 @@ class Application {
 
     this.showWelcome(state);
     // await this.preloadAllSongs(this._questions);
+    // document.querySelector(`.js-main-start`).disabled = false;
   }
 
   static showWelcome(state) {
