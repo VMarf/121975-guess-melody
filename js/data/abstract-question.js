@@ -6,10 +6,10 @@ class AbstractQuestion {
   constructor(loadedQuestion) {
     this.type = loadedQuestion.type;
     this.title = loadedQuestion.question;
-    this.answerList = this.getAnswerList(loadedQuestion);
+    this.answerList = this._getAnswerList(loadedQuestion);
   }
 
-  getAnswerList(loadedQuestion) {
+  _getAnswerList(loadedQuestion) {
     const isArtist = loadedQuestion.type === QuestionType.ARTIST;
 
     return loadedQuestion.answers.map((answer) => {

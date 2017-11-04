@@ -2,7 +2,6 @@ import Loader from './data/loader.js';
 import {QuestionType} from './data/game.js';
 import adaptQuestions from './data/adapt-questions.js';
 import GameTimer from './data/game-timer.js';
-import blobToBase64 from './utils/blob-to-base64.js';
 import Welcome from './templates/screens/welcome/welcome.js';
 import LevelArtist from './templates/screens/level-artist/level-artist.js';
 import LevelGenre from './templates/screens/level-genre/level-genre.js';
@@ -43,7 +42,7 @@ const checkGameTimer = (state) => {
 const getSource = async (src) => {
   const response = await fetch(src);
 
-  return await blobToBase64(await response.blob());
+  return await URL.createObjectURL(await response.blob());
 };
 
 const preloadQuestionSongs = async (question) => {
@@ -61,6 +60,7 @@ const preloadQuestionSongs = async (question) => {
 class Application {
   constructor() {
     this._questions = [];
+    this.isSongsLoaded = false;
   }
 
   static async init(state) {
@@ -108,6 +108,9 @@ class Application {
     });
 
     await Promise.all(promises);
+
+    this.isSongsLoaded = true;
+    this.onSongsLoaded();
   }
 
   static getLevelQuestion(levelNumber) {
@@ -122,7 +125,6 @@ class Application {
 
     this.showWelcome(state);
     await this.preloadAllSongs(this._questions);
-    document.querySelector(`.js-main-start`).disabled = false;
   }
 
   static showWelcome(state) {
@@ -149,6 +151,8 @@ class Application {
     state.timer.stop();
     location.hash = `${ControllerId.FAIL_RESULT}?${saveState(state)}`;
   }
+
+  onSongsLoaded() {}
 }
 
 export default Application;

@@ -30,6 +30,10 @@ class WelcomeView extends AbstractView {
     startButton.addEventListener(`click`, this.onStartButtonClick);
   }
 
+  activatePlayButton() {
+    document.querySelector(`.js-main-start`).disabled = false;
+  }
+
   onStartButtonClick() {}
 }
 

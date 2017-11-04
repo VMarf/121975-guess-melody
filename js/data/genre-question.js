@@ -3,10 +3,10 @@ import AbstractQuestion from './abstract-question.js';
 class GenreQuestion extends AbstractQuestion {
   constructor(loadedQuestion) {
     super(loadedQuestion);
-    this.correctAnswer = this.getGenreCorrectAnswer(loadedQuestion.answers, loadedQuestion.genre);
+    this.correctAnswer = this._getGenreCorrectAnswer(loadedQuestion.answers, loadedQuestion.genre);
   }
 
-  getGenreCorrectAnswer(answers, genre) {
+  _getGenreCorrectAnswer(answers, genre) {
     return answers
         .filter((answer) =>
           answer.genre === genre

@@ -7,10 +7,10 @@ class ArtistQuestion extends AbstractQuestion {
       src: loadedQuestion.src,
       url: null
     };
-    this.correctAnswer = this.getArtistCorrectAnswer(loadedQuestion.answers);
+    this.correctAnswer = this._getArtistCorrectAnswer(loadedQuestion.answers);
   }
 
-  getArtistCorrectAnswer(answers) {
+  _getArtistCorrectAnswer(answers) {
     const correctAnswer = answers.find((answer) => answer.isCorrect);
 
     return correctAnswer ? correctAnswer.title : ``;
