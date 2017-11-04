@@ -9,9 +9,7 @@ class AbstractView {
     return getNode(this.template);
   }
 
-  bind() {
-
-  }
+  bind() {}
 
   get element() {
     if (!this._element) {

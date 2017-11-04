@@ -119,8 +119,11 @@ class Application {
   static async start(state, loadedData) {
     this._questions = loadedData;
 
+    // TODO: Удалить
+    console.log(this._questions);
+
     this.showWelcome(state);
-    await this.preloadAllSongs(this._questions);
+    // await this.preloadAllSongs(this._questions);
   }
 
   static showWelcome(state) {
