@@ -60,7 +60,6 @@ const preloadQuestionSongs = async (question) => {
 class Application {
   constructor() {
     this._questions = [];
-    this.isSongsLoaded = false;
   }
 
   static async init(state) {
@@ -91,6 +90,8 @@ class Application {
 
     if (Controller) {
       new Controller(loadState(data)).init();
+    } else {
+      this.showWelcome();
     }
   }
 
@@ -108,9 +109,6 @@ class Application {
     });
 
     await Promise.all(promises);
-
-    this.isSongsLoaded = true;
-    this.onSongsLoaded();
   }
 
   static getLevelQuestion(levelNumber) {
@@ -120,11 +118,9 @@ class Application {
   static async start(state, loadedData) {
     this._questions = loadedData;
 
-    // TODO: Удалить
-    console.log(this._questions);
-
     this.showWelcome(state);
     await this.preloadAllSongs(this._questions);
+    document.querySelector(`.js-main-start`).disabled = false;
   }
 
   static showWelcome(state) {
@@ -151,8 +147,6 @@ class Application {
     state.timer.stop();
     location.hash = `${ControllerId.FAIL_RESULT}?${saveState(state)}`;
   }
-
-  onSongsLoaded() {}
 }
 
 export default Application;
