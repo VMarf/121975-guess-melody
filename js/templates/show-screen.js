@@ -1,9 +1,11 @@
 const app = document.querySelector(`.js-app`);
 
-let oldScreen;
+const getOldScreen = () => {
+  return app.querySelector(`.js-main`);
+};
 
 const showScreen = (screen) => {
-  oldScreen = app.querySelector(`.js-main`);
+  const oldScreen = getOldScreen();
 
   app.replaceChild(screen, oldScreen);
 };

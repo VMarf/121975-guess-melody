@@ -21,11 +21,4 @@ const WordsVariants = {
   MISTAKES: [`ошибку`, `ошибки`, `ошибок`]
 };
 
-const currentPlayer = {
-  answers: [], // массив объектов, каждый объект содержит ключ correctly с значением true или false и ключ time с числовым значением в секундах
-  resetToDefault() {
-    this.answers = [];
-  }
-};
-
-export {GameSettings, QuestionType, WordsVariants, currentPlayer};
+export {GameSettings, QuestionType, WordsVariants};

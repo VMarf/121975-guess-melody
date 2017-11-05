@@ -1,4 +1,4 @@
-import {GameSettings, QuestionType, currentPlayer} from '../data/game.js';
+import {GameSettings, QuestionType} from '../data/game.js';
 import getPlayerScore from '../data/get-player-score.js';
 import Application from '../application.js';
 
@@ -15,24 +15,17 @@ const showLevel = (state, question) => {
 };
 
 const fillFinalState = (state) => {
-  const numberQuickAnswers = currentPlayer.answers
+  const numberQuickAnswers = state.currentPlayer.answers
       .filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME)
       .length;
 
-  const finalState = {
-    timer: state.timer,
-    mistakes: state.mistakes,
-    currentPlayer: {
-      remainingTime: state.time,
-      remainingNotes: GameSettings.MAX_COUNT_NOTES - state.mistakes,
-      numberQuickAnswers
-    }
-  };
+  state.currentPlayer.remainingTime = state.time;
+  state.currentPlayer.remainingNotes = GameSettings.MAX_COUNT_NOTES - state.mistakes;
+  state.currentPlayer.numberQuickAnswers = numberQuickAnswers;
+  state.currentPlayer.spentTime = GameSettings.MAX_GAME_TIME - state.currentPlayer.remainingTime;
+  state.currentPlayer.score = getPlayerScore(state.currentPlayer.answers, state.currentPlayer.remainingNotes);
 
-  finalState.currentPlayer.spentTime = GameSettings.MAX_GAME_TIME - finalState.currentPlayer.remainingTime;
-  finalState.currentPlayer.score = getPlayerScore(currentPlayer.answers, finalState.currentPlayer.remainingNotes);
-
-  return finalState;
+  return state;
 };
 
 const controlGame = (state) => {

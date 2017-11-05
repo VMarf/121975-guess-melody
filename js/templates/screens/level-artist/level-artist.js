@@ -1,5 +1,4 @@
 import Application from '../../../application.js';
-import {currentPlayer} from '../../../data/game.js';
 import checkAnswer from '../../../data/check-answer.js';
 import showScreen from '../../show-screen.js';
 import controlGame from '../../control-game.js';
@@ -15,7 +14,7 @@ class LevelArtist {
 
     this.view.onSendAnswer = (answer) => {
       clearInterval(this.answerTimer);
-      checkAnswer(this.state, this.question, answer, this.answerTimerValue, currentPlayer);
+      checkAnswer(this.state, this.question, answer, this.answerTimerValue);
       controlGame(this.state);
     };
   }

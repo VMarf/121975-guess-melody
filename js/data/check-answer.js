@@ -11,17 +11,17 @@ const checkGenreAnswer = (answer, correctAnswer) => {
 };
 
 // Добавляем ответ к остальным ответам игрока
-const addPlayerAnswer = (state, currentPlayer, isAnswerCorrect, answerTime) => {
+const addPlayerAnswer = (state, isAnswerCorrect, answerTime) => {
 
   // Если ответ неправильный, увеличиваем количество ошибок
   if (!isAnswerCorrect) {
     state.mistakes++;
   }
 
-  currentPlayer.answers.push(new PlayerAnswer(isAnswerCorrect, answerTime));
+  state.currentPlayer.answers.push(new PlayerAnswer(isAnswerCorrect, answerTime));
 };
 
-const checkAnswer = (state, question, answer, answerTime, currentPlayer) => {
+const checkAnswer = (state, question, answer, answerTime) => {
   let isAnswerCorrect;
 
   if (question.type === QuestionType.ARTIST) {
@@ -32,7 +32,7 @@ const checkAnswer = (state, question, answer, answerTime, currentPlayer) => {
     isAnswerCorrect = checkGenreAnswer(answer, question.correctAnswer);
   }
 
-  addPlayerAnswer(state, currentPlayer, isAnswerCorrect, answerTime);
+  addPlayerAnswer(state, isAnswerCorrect, answerTime);
 };
 
 export default checkAnswer;
