@@ -3,18 +3,13 @@ import ArtistQuestion from './artist-question.js';
 import GenreQuestion from './genre-question.js';
 
 const adaptQuestions = (loadedData) => {
-  const adaptedQuestions = [];
-
-  loadedData.forEach((loadedQuestion) => {
+  return loadedData.map((loadedQuestion) => {
     if (loadedQuestion.type === QuestionType.ARTIST) {
-      adaptedQuestions.push(new ArtistQuestion(loadedQuestion));
-      return;
+      return new ArtistQuestion(loadedQuestion);
     }
 
-    adaptedQuestions.push(new GenreQuestion(loadedQuestion));
+    return new GenreQuestion(loadedQuestion);
   });
-
-  return adaptedQuestions;
 };
 
 export default adaptQuestions;
